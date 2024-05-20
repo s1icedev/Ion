@@ -28,8 +28,9 @@ import net.horizonsend.ion.server.features.starship.event.StarshipPilotedEvent
 import net.horizonsend.ion.server.features.starship.event.StarshipUnpilotEvent
 import net.horizonsend.ion.server.features.starship.event.StarshipUnpilotedEvent
 import net.horizonsend.ion.server.features.starship.hyperspace.Hyperspace
-import net.horizonsend.ion.server.features.starship.subsystem.misc.LandingGearSubsystem
-import net.horizonsend.ion.server.features.starship.subsystem.misc.MiningLaserSubsystem
+import net.horizonsend.ion.server.features.starship.modules.StandardRewardsProvider
+import net.horizonsend.ion.server.features.starship.subsystem.LandingGearSubsystem
+import net.horizonsend.ion.server.features.starship.subsystem.MiningLaserSubsystem
 import net.horizonsend.ion.server.features.starship.subsystem.shield.ShieldSubsystem
 import net.horizonsend.ion.server.features.starship.subsystem.shield.StarshipShields
 import net.horizonsend.ion.server.features.transport.Extractors
@@ -44,6 +45,8 @@ import net.horizonsend.ion.server.miscellaneous.utils.createData
 import net.horizonsend.ion.server.miscellaneous.utils.isPilot
 import net.horizonsend.ion.server.miscellaneous.utils.listen
 import net.kyori.adventure.audience.Audience
+import net.kyori.adventure.key.Key
+import net.kyori.adventure.sound.Sound
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -110,6 +113,11 @@ object PilotedStarships : IonServerComponent() {
 		ActiveStarships.findByPilot(player)?.controller?.let { check(!map.containsKey(it)) { "${player.name} is already piloting a starship" } }
 		check(starship.isWithinHitbox(player)) { "${player.name} is not in their ship!" }
 		removeFromCurrentlyRidingShip(player)
+
+		// Add the rewards provider if not present
+		if (starship.rewardsProviders.none { it is StandardRewardsProvider }) {
+			starship.rewardsProviders.add(StandardRewardsProvider(starship))
+		}
 
 		pilot(starship, ActivePlayerController(player, starship)) { ship ->
 			saveLoadshipData(ship, player)
@@ -345,6 +353,10 @@ object PilotedStarships : IonServerComponent() {
 			return false
 		}
 
+		for (nearbyPlayer in player.world.getNearbyPlayers(player.location, 500.0)) {
+			nearbyPlayer.playSound(Sound.sound(Key.key("minecraft:block.beacon.activate"), Sound.Source.AMBIENT, 5f, 0.05f))
+		}
+
 		val carriedShips = mutableListOf<StarshipData>()
 
 		for ((key: Long, blockData: BlockData) in state.blockMap) {
@@ -414,12 +426,6 @@ object PilotedStarships : IonServerComponent() {
 				return@activateAsync
 			}
 
-			if (activePlayerStarship.type == StarshipType.BARGE && (!SpaceWorlds.contains(activePlayerStarship.world) && !Hyperspace.isHyperspaceWorld(activePlayerStarship.world))) {
-				player.userError("Barges can only be piloted in space!")
-				DeactivatedPlayerStarships.deactivateAsync(activePlayerStarship)
-				return@activateAsync
-			}
-
 			// Check required subsystems
 			for (requiredSubsystem in activePlayerStarship.balancing.requiredMultiblocks) {
 				if (!requiredSubsystem.checkRequirements(activePlayerStarship.subsystems)) {
@@ -456,10 +462,6 @@ object PilotedStarships : IonServerComponent() {
 				)
 			}
 
-			for (nearbyPlayer in player.world.getNearbyPlayers(player.location, 10_000.0)) {
-				nearbyPlayer.playSound(data.starshipType.actualType.balancingSupplier.get().sounds.pilot.sound)
-			}
-
 			callback(activePlayerStarship)
 		}
 
@@ -478,8 +480,8 @@ object PilotedStarships : IonServerComponent() {
 		unpilot(starship)
 		DeactivatedPlayerStarships.deactivateAsync(starship)
 
-		for (nearbyPlayer in starship.world.getNearbyPlayers(starship.centerOfMass.toLocation(starship.world), 10_000.0)) {
-			nearbyPlayer.playSound(starship.balancing.sounds.release.sound)
+		for (nearbyPlayer in starship.world.getNearbyPlayers(starship.centerOfMass.toLocation(starship.world), 500.0)) {
+			nearbyPlayer.playSound(Sound.sound(Key.key("minecraft:block.beacon.deactivate"), Sound.Source.AMBIENT, 5f, 0.05f))
 		}
 
 		controller.successActionMessage("Released ${starship.getDisplayNameMiniMessage()}")

@@ -9,7 +9,6 @@ import net.horizonsend.ion.common.database.schema.Cryopod
 import net.horizonsend.ion.common.database.schema.starships.StarshipData
 import net.horizonsend.ion.common.extensions.information
 import net.horizonsend.ion.common.extensions.serverError
-import net.horizonsend.ion.common.extensions.userError
 import net.horizonsend.ion.server.features.space.CachedPlanet
 import net.horizonsend.ion.server.features.space.Space
 import net.horizonsend.ion.server.features.space.SpaceWorlds
@@ -19,7 +18,7 @@ import net.horizonsend.ion.server.features.starship.active.ActiveStarship
 import net.horizonsend.ion.server.features.starship.active.ActiveStarships
 import net.horizonsend.ion.server.features.starship.event.EnterPlanetEvent
 import net.horizonsend.ion.server.features.starship.isFlyable
-import net.horizonsend.ion.server.features.starship.subsystem.misc.CryoSubsystem
+import net.horizonsend.ion.server.features.starship.subsystem.CryoSubsystem
 import net.horizonsend.ion.server.miscellaneous.utils.Vec3i
 import net.horizonsend.ion.server.miscellaneous.utils.blockKey
 import net.horizonsend.ion.server.miscellaneous.utils.blockKeyX
@@ -63,12 +62,6 @@ abstract class StarshipMovement(val starship: ActiveStarship, val newWorld: Worl
 		if (starship.type == StarshipType.BATTLECRUISER && !SpaceWorlds.contains(world2)) {
 			throw StarshipMovementException("Battlecruisers cannot support their weight within strong gravity wells!")
 		}
-
-		if (starship.type == StarshipType.BARGE && !SpaceWorlds.contains(world2)) {
-			throw StarshipMovementException("Barges cannot support their weight within strong gravity wells!")
-		}
-
-		//TODO replace this system with something better
 
 		if (!ActiveStarships.isActive(starship)) {
 			starship.serverError("Starship not active, movement cancelled.")

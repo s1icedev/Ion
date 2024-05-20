@@ -4,14 +4,11 @@ import com.mojang.math.Transformation
 import net.horizonsend.ion.common.extensions.userError
 import net.horizonsend.ion.common.utils.miscellaneous.randomInt
 import net.horizonsend.ion.server.configuration.StarshipWeapons
-import net.horizonsend.ion.server.features.custom.items.CustomItems
+import net.horizonsend.ion.server.features.customitems.CustomItems
 import net.horizonsend.ion.server.features.starship.active.ActiveStarship
 import net.horizonsend.ion.server.features.starship.damager.Damager
-import net.horizonsend.ion.server.miscellaneous.utils.gayColors
 import net.horizonsend.ion.server.miscellaneous.utils.minecraft
 import net.horizonsend.ion.server.miscellaneous.utils.toBlockPos
-import net.kyori.adventure.key.Key
-import net.kyori.adventure.sound.Sound
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket
 import net.minecraft.world.entity.Display.ItemDisplay
 import net.minecraft.world.entity.EntityType
@@ -61,15 +58,19 @@ class ArsenalRocketProjectile(
 		normal direction refers to it not moving straight up anymore
 		 */
 		age++
-		if (age< randomInt(10,15) && !hasSwitchedToNormalDirection) {
+		if (age< randomInt(10,15) && !hasSwitchedToNormalDirection){
 			if (face == BlockFace.UP) dir = Vector(0,1,0).multiply(dir.length()) //move it up
 			else dir = Vector(0,-1,0).multiply(dir.length()) //move it down
-			val yFactor = when(face) {
+			val yFactor = when(face){
 				BlockFace.UP-> 1
 				BlockFace.DOWN-> -1
 				else -> 1
 			}
-			val predictedNewLoc = loc.clone().add(0.0, delta * speed/2 * yFactor, 0.0)
+			val predictedNewLoc = loc.clone().add(0.0, delta * speed/2*yFactor, 0.0)
+			if (!predictedNewLoc.isChunkLoaded) {
+				destroyAllDisplayEntities()
+				return
+			}
 			//We're not doing any impact stuff as we dont want the projectile to be able to hit stuff at this stage
 			val travel = loc.distance(predictedNewLoc)
 
@@ -89,28 +90,16 @@ class ArsenalRocketProjectile(
 			return
 		}
 		else {
-			if (!hasSwitchedToNormalDirection) {
-				if (starship != null) {
-					for (nearbyPlayer in starship.world.getNearbyPlayers(
-						starship.centerOfMass.toLocation(starship.world),
-						250.0
-					)) {
-						nearbyPlayer.playSound(
-							Sound.sound(
-								Key.key("horizonsend:starship.weapon.arsenal_missile.ignite"),
-								Sound.Source.AMBIENT,
-								5f,
-								1.0f
-							)
-						)
-					}
-				}
+			if (!hasSwitchedToNormalDirection){
 				//1 is for up, -1 is for down
 				if (face == BlockFace.UP) this.dir = initialVelocity.clone().setY(1).normalize()
 				else this.dir = initialVelocity.clone().setY(-1).normalize()
 			}
 			hasSwitchedToNormalDirection = true
 			val predictedNewLoc = loc.clone().add(dir.clone().multiply(delta * speed))
+			if (!predictedNewLoc.isChunkLoaded) {
+				return
+			}
 			val result: RayTraceResult? = loc.world.rayTrace(loc, dir, delta * speed, FluidCollisionMode.NEVER, true, 0.1) { it.type != org.bukkit.entity.EntityType.ITEM_DISPLAY }
 			val newLoc = result?.hitPosition?.toLocation(loc.world) ?: predictedNewLoc
 			val travel = loc.distance(newLoc)
@@ -155,15 +144,14 @@ class ArsenalRocketProjectile(
 	}
 
 	override fun moveVisually(oldLocation: Location, newLocation: Location, travel: Double) {
-		val color: Color = if (starship?.rainbowToggle == true) gayColors.random() else Color.GRAY
-		newLocation.world.spawnParticle(Particle.REDSTONE, newLocation.x, newLocation.y, newLocation.z, 2,0.0,0.0,0.0, 0.0,DustOptions(color, 3f), true)
-		newLocation.world.spawnParticle(Particle.SOUL_FIRE_FLAME,newLocation, 3)
+		newLocation.world.spawnParticle(Particle.REDSTONE, newLocation, 2, DustOptions(Color.BLACK, 3f))
+		newLocation.world.spawnParticle(Particle.SOUL_FIRE_FLAME, newLocation, 3)
 		updateDisplayEntity(newLocation, dir.clone().normalize().multiply(speed))
 	}
 
 	override fun fire() {
 		if (starship == null) return
-		if (starship.targetedPosition == null) {
+		if (starship.targetedPosition == null){
 			starship.audiences().forEach { it.userError("Error: Arsenal Missiles need a targeted position to fire, do /targetposition x y z to target a Position!") }
 			return
 		}
@@ -176,9 +164,6 @@ class ArsenalRocketProjectile(
 		newLoc.world.spawnParticle(Particle.EXPLOSION_HUGE, newLoc, 4)
 		newLoc.world.spawnParticle(Particle.FLAME, newLoc, 10)
 		newLoc.world.spawnParticle(Particle.FLASH, newLoc, 3)
-		for (nearbyPlayer in newLoc.world.getNearbyPlayers(newLoc, 200.0)) {
-			nearbyPlayer.playSound(Sound.sound(Key.key("horizonsend:starship.weapon.arsenal_missile.impact"), Sound.Source.AMBIENT, 5f, 1.0f))
-		}
 		super.impact(newLoc, block, entity)
 	}
 
@@ -187,7 +172,7 @@ class ArsenalRocketProjectile(
 			val player = (playerBukkit as CraftPlayer)
 			val connection = player.handle.connection
 			val itemDisplay = ItemDisplay(EntityType.ITEM_DISPLAY, player.minecraft.level()).apply {
-				this.itemStack = CraftItemStack.asNMSCopy(CustomItems.ACTIVATED_ARSENAL_MISSILE.constructItemStack())
+				this.itemStack = CraftItemStack.asNMSCopy(CustomItems.ARSENAL_MISSILE_ON.constructItemStack())
 				setPos(player.location.toBlockPos().center)
 				val translation = originLocation.toVector().subtract(Vector(this.x, this.y, this.z)).toVector3f()
 				val transformation = Transformation(
@@ -213,7 +198,7 @@ class ArsenalRocketProjectile(
 		val nmsPlayer = (player as CraftPlayer)
 		val connection = nmsPlayer.handle.connection
 		val itemDisplay = ItemDisplay(EntityType.ITEM_DISPLAY, nmsPlayer.minecraft.level()).apply {
-			this.itemStack = CraftItemStack.asNMSCopy(CustomItems.ACTIVATED_ARSENAL_MISSILE.constructItemStack())
+			this.itemStack = CraftItemStack.asNMSCopy(CustomItems.ARSENAL_MISSILE_ON.constructItemStack())
 			setPos(nmsPlayer.location.toBlockPos().center)
 			val translation = originLocation.toVector().subtract(Vector(this.x, this.y, this.z)).toVector3f()
 			val transformation = Transformation(

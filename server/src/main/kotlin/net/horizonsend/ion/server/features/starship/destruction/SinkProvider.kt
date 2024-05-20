@@ -1,8 +1,6 @@
 package net.horizonsend.ion.server.features.starship.destruction
 
 import net.horizonsend.ion.server.IonServer
-import net.horizonsend.ion.server.features.custom.blocks.CustomBlocks
-import net.horizonsend.ion.server.features.custom.blocks.CustomBlocks.customBlock
 import net.horizonsend.ion.server.features.starship.active.ActiveStarship
 import org.bukkit.scheduler.BukkitRunnable
 
@@ -60,21 +58,9 @@ abstract class SinkProvider(
 			}
 		},
 
-		CRUISER {
-			override fun getSinkProvider(starship: ActiveStarship): SinkProvider {
-				return RemoveBlockSink(starship) { it.customBlock == CustomBlocks.CRUISER_REACTOR_CORE }
-			}
-		},
-
-		BARGE {
-			override fun getSinkProvider(starship: ActiveStarship): SinkProvider {
-				return RemoveBlockSink(starship) { it.customBlock == CustomBlocks.BARGE_REACTOR_CORE }
-			}
-		},
-
 		BATTLECRUISER {
 			override fun getSinkProvider(starship: ActiveStarship): SinkProvider {
-				return RemoveBlockSink(starship) { it.customBlock == CustomBlocks.BATTLECRUISER_REACTOR_CORE }
+				return BattlecruiserSink(starship)
 			}
 		};
 

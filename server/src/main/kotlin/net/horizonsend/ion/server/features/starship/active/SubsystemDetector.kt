@@ -3,9 +3,6 @@ package net.horizonsend.ion.server.features.starship.active
 import net.horizonsend.ion.common.database.schema.Cryopod
 import net.horizonsend.ion.server.features.multiblock.Multiblocks
 import net.horizonsend.ion.server.features.multiblock.areashield.AreaShield
-import net.horizonsend.ion.server.features.multiblock.checklist.BargeReactorMultiBlock
-import net.horizonsend.ion.server.features.multiblock.checklist.BattleCruiserReactorMultiblock
-import net.horizonsend.ion.server.features.multiblock.checklist.CruiserReactorMultiblock
 import net.horizonsend.ion.server.features.multiblock.drills.DrillMultiblock
 import net.horizonsend.ion.server.features.multiblock.gravitywell.GravityWellMultiblock
 import net.horizonsend.ion.server.features.multiblock.hyperdrive.HyperdriveMultiblock
@@ -19,18 +16,17 @@ import net.horizonsend.ion.server.features.multiblock.particleshield.EventShield
 import net.horizonsend.ion.server.features.multiblock.particleshield.SphereShieldMultiblock
 import net.horizonsend.ion.server.features.multiblock.starshipweapon.SignlessStarshipWeaponMultiblock
 import net.horizonsend.ion.server.features.multiblock.starshipweapon.SubsystemMultiblock
+import net.horizonsend.ion.server.features.multiblock.supercapreactor.SupercapReactorMultiblock
+import net.horizonsend.ion.server.features.starship.subsystem.CryoSubsystem
 import net.horizonsend.ion.server.features.starship.subsystem.DirectionalSubsystem
+import net.horizonsend.ion.server.features.starship.subsystem.FuelTankSubsystem
+import net.horizonsend.ion.server.features.starship.subsystem.GravityWellSubsystem
+import net.horizonsend.ion.server.features.starship.subsystem.HyperdriveSubsystem
+import net.horizonsend.ion.server.features.starship.subsystem.MagazineSubsystem
+import net.horizonsend.ion.server.features.starship.subsystem.NavCompSubsystem
+import net.horizonsend.ion.server.features.starship.subsystem.PlanetDrillSubsystem
 import net.horizonsend.ion.server.features.starship.subsystem.StarshipSubsystem
-import net.horizonsend.ion.server.features.starship.subsystem.checklist.BargeReactorSubsystem
-import net.horizonsend.ion.server.features.starship.subsystem.checklist.BattlecruiserReactorSubsystem
-import net.horizonsend.ion.server.features.starship.subsystem.checklist.CruiserReactorSubsystem
-import net.horizonsend.ion.server.features.starship.subsystem.checklist.FuelTankSubsystem
-import net.horizonsend.ion.server.features.starship.subsystem.misc.CryoSubsystem
-import net.horizonsend.ion.server.features.starship.subsystem.misc.GravityWellSubsystem
-import net.horizonsend.ion.server.features.starship.subsystem.misc.HyperdriveSubsystem
-import net.horizonsend.ion.server.features.starship.subsystem.misc.MagazineSubsystem
-import net.horizonsend.ion.server.features.starship.subsystem.misc.NavCompSubsystem
-import net.horizonsend.ion.server.features.starship.subsystem.misc.PlanetDrillSubsystem
+import net.horizonsend.ion.server.features.starship.subsystem.SupercapReactorSubsystem
 import net.horizonsend.ion.server.features.starship.subsystem.reactor.ReactorSubsystem
 import net.horizonsend.ion.server.features.starship.subsystem.shield.BoxShieldSubsystem
 import net.horizonsend.ion.server.features.starship.subsystem.shield.SphereShieldSubsystem
@@ -38,12 +34,15 @@ import net.horizonsend.ion.server.features.starship.subsystem.thruster.ThrusterS
 import net.horizonsend.ion.server.features.starship.subsystem.thruster.ThrusterType
 import net.horizonsend.ion.server.features.starship.subsystem.weapon.WeaponSubsystem
 import net.horizonsend.ion.server.features.starship.subsystem.weapon.interfaces.PermissionWeaponSubsystem
-import net.horizonsend.ion.server.miscellaneous.utils.*
+import net.horizonsend.ion.server.miscellaneous.utils.CARDINAL_BLOCK_FACES
+import net.horizonsend.ion.server.miscellaneous.utils.Vec3i
+import net.horizonsend.ion.server.miscellaneous.utils.getFacing
+import net.horizonsend.ion.server.miscellaneous.utils.isFroglight
+import net.horizonsend.ion.server.miscellaneous.utils.isWallSign
 import net.kyori.adventure.audience.Audience
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
-import org.bukkit.block.HangingSign
 import org.bukkit.block.Sign
 import java.util.LinkedList
 import java.util.Locale
@@ -138,16 +137,8 @@ object SubsystemDetector {
 				starship.subsystems += BoxShieldSubsystem(starship, sign, multiblock)
 			}
 
-			is BattleCruiserReactorMultiblock -> {
-				starship.subsystems += BattlecruiserReactorSubsystem(starship, sign, multiblock)
-			}
-
-			is CruiserReactorMultiblock -> {
-				starship.subsystems += CruiserReactorSubsystem(starship, sign, multiblock)
-			}
-
-			is BargeReactorMultiBlock -> {
-				starship.subsystems += BargeReactorSubsystem(starship, sign, multiblock)
+			is SupercapReactorMultiblock -> {
+				starship.subsystems += SupercapReactorSubsystem(starship, sign, multiblock)
 			}
 
 			is FuelTankMultiblock -> {
@@ -237,7 +228,7 @@ object SubsystemDetector {
 
 	private fun getWeaponMultiblock(block: Block, face: BlockFace): SubsystemMultiblock<*>? {
 		return when {
-			block.state is Sign && block.state !is HangingSign -> getSignWeaponMultiblock(block, face)
+			block.state is Sign -> getSignWeaponMultiblock(block, face)
 			else -> getSignlessStarshipWeaponMultiblock(block, face)
 		}
 	}

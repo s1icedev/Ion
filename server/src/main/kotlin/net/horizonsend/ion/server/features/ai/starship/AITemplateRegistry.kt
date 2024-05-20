@@ -12,6 +12,7 @@ import net.horizonsend.ion.server.features.ai.faction.AIFaction.Companion.PIRATE
 import net.horizonsend.ion.server.features.ai.faction.AIFaction.Companion.WATCHER_STANDARD
 import net.horizonsend.ion.server.features.ai.faction.AIFaction.Companion.miningGuildMini
 import net.horizonsend.ion.server.features.ai.faction.AIFaction.Companion.吃饭人_STANDARD
+import net.horizonsend.ion.server.features.customitems.CustomItems
 
 /**
  * Fully realized, spawnable, AI templates
@@ -36,7 +37,7 @@ object AITemplateRegistry {
 		.addRewardProvider(AITemplate.SLXPRewardProviderConfiguration(0.9))
 		.addRewardProvider(AITemplate.CreditRewardProviderConfiguration(9000.0))
 		.addRewardProvider(AITemplate.ItemRewardProviderConfiguration(listOf(ServerConfiguration.PlanetSpawnConfig.DroppedItem(
-			itemString = net.horizonsend.ion.server.features.custom.items.CustomItems.SUPERCONDUCTOR.identifier,
+			itemString = CustomItems.SUPERCONDUCTOR.identifier,
 			dropChance = 1.0f,
 			amount = 1,
 		))))
@@ -53,7 +54,7 @@ object AITemplateRegistry {
 		.addRewardProvider(AITemplate.SLXPRewardProviderConfiguration(0.9))
 		.addRewardProvider(AITemplate.CreditRewardProviderConfiguration(9000.0))
 		.addRewardProvider(AITemplate.ItemRewardProviderConfiguration(listOf(ServerConfiguration.PlanetSpawnConfig.DroppedItem(
-			itemString = net.horizonsend.ion.server.features.custom.items.CustomItems.SUPERCONDUCTOR.identifier,
+			itemString = CustomItems.SUPERCONDUCTOR.identifier,
 			dropChance = 1.0f,
 			amount = 1,
 		))))
@@ -76,7 +77,7 @@ object AITemplateRegistry {
 		.addRewardProvider(AITemplate.SLXPRewardProviderConfiguration(0.9))
 		.addRewardProvider(AITemplate.CreditRewardProviderConfiguration(18000.0))
 		.addRewardProvider(AITemplate.ItemRewardProviderConfiguration(listOf(ServerConfiguration.PlanetSpawnConfig.DroppedItem(
-			itemString = net.horizonsend.ion.server.features.custom.items.CustomItems.SUPERCONDUCTOR.identifier,
+			itemString = CustomItems.SUPERCONDUCTOR.identifier,
 			dropChance = 1.0f,
 			amount = 1,
 		))))
@@ -106,7 +107,7 @@ object AITemplateRegistry {
 		.addRewardProvider(AITemplate.SLXPRewardProviderConfiguration(0.9))
 		.addRewardProvider(AITemplate.CreditRewardProviderConfiguration(9000.0))
 		.addRewardProvider(AITemplate.ItemRewardProviderConfiguration(listOf(ServerConfiguration.PlanetSpawnConfig.DroppedItem(
-			itemString = net.horizonsend.ion.server.features.custom.items.CustomItems.SUPERCONDUCTOR.identifier,
+			itemString = CustomItems.SUPERCONDUCTOR.identifier,
 			dropChance = 1.0f,
 			amount = 1,
 		))))
@@ -123,7 +124,7 @@ object AITemplateRegistry {
 		.addRewardProvider(AITemplate.SLXPRewardProviderConfiguration(0.9))
 		.addRewardProvider(AITemplate.CreditRewardProviderConfiguration(9000.0))
 		.addRewardProvider(AITemplate.ItemRewardProviderConfiguration(listOf(ServerConfiguration.PlanetSpawnConfig.DroppedItem(
-			itemString = net.horizonsend.ion.server.features.custom.items.CustomItems.SUPERCONDUCTOR.identifier,
+			itemString = CustomItems.SUPERCONDUCTOR.identifier,
 			dropChance = 1.0f,
 			amount = 1,
 		))))

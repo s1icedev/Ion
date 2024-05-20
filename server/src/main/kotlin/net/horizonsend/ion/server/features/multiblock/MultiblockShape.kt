@@ -1,12 +1,8 @@
 package net.horizonsend.ion.server.features.multiblock
 
-import net.horizonsend.ion.server.features.custom.blocks.CustomBlock
-import net.horizonsend.ion.server.features.custom.blocks.CustomBlocks
-import net.horizonsend.ion.server.features.custom.blocks.CustomBlocks.BARGE_REACTOR_CORE
-import net.horizonsend.ion.server.features.custom.blocks.CustomBlocks.BATTLECRUISER_REACTOR_CORE
-import net.horizonsend.ion.server.features.custom.blocks.CustomBlocks.CRUISER_REACTOR_CORE
-import net.horizonsend.ion.server.features.custom.blocks.CustomBlocks.ENRICHED_URANIUM_BLOCK
-import net.horizonsend.ion.server.features.custom.blocks.CustomBlocks.NETHERITE_CASING
+import net.horizonsend.ion.server.features.customblocks.CustomBlock
+import net.horizonsend.ion.server.features.customblocks.CustomBlocks
+import net.horizonsend.ion.server.features.customblocks.CustomBlocks.REACTOR_CORE
 import net.horizonsend.ion.server.features.multiblock.areashield.AreaShield10.buildStructure
 import net.horizonsend.ion.server.features.transport.Extractors
 import net.horizonsend.ion.server.features.transport.Wires
@@ -260,11 +256,7 @@ class MultiblockShape {
 
 		fun glass() = type(Material.GLASS)
 		fun anvil() = type(Material.ANVIL)
-		fun bcReactorCore() = customBlock(BATTLECRUISER_REACTOR_CORE)
-		fun bargeReactorCore() = customBlock(BARGE_REACTOR_CORE)
-		fun cruiserReactorCore() = customBlock(CRUISER_REACTOR_CORE)
-		fun netheriteCasing() = customBlock(NETHERITE_CASING)
-		fun enrichedUraniumBlock() = customBlock(ENRICHED_URANIUM_BLOCK)
+		fun reactorCore() = customBlock(REACTOR_CORE)
 		fun stainedGlass() = filteredTypes { it.isStainedGlass }
 		fun anyGlass() = filteredTypes { it.isGlass }
 		fun seaLantern() = type(Material.SEA_LANTERN)
@@ -347,7 +339,7 @@ class MultiblockShape {
 
 		fun glowstone() = type(Material.GLOWSTONE)
 
-		fun sponge() = anyType(Material.SPONGE, Material.WET_SPONGE)
+		fun sponge() = type(Material.SPONGE)
 		fun endRod() = type(Material.END_ROD)
 
 		fun hopper() = type(Material.HOPPER)

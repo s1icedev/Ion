@@ -11,21 +11,19 @@ import net.horizonsend.ion.common.database.schema.nations.Territory
 import net.horizonsend.ion.common.extensions.information
 import net.horizonsend.ion.common.extensions.serverError
 import net.horizonsend.ion.common.extensions.userError
-import net.horizonsend.ion.common.utils.miscellaneous.roundToHundredth
 import net.horizonsend.ion.common.utils.miscellaneous.toCreditsString
 import net.horizonsend.ion.common.utils.text.toComponent
 import net.horizonsend.ion.common.utils.text.toCreditComponent
 import net.horizonsend.ion.server.IonServerComponent
 import net.horizonsend.ion.server.command.GlobalCompletions.fromItemString
 import net.horizonsend.ion.server.command.economy.BazaarCommand
-import net.horizonsend.ion.server.features.custom.items.CustomItems
+import net.horizonsend.ion.server.features.customitems.CustomItems
 import net.horizonsend.ion.server.features.economy.city.TradeCities
 import net.horizonsend.ion.server.features.economy.city.TradeCityData
 import net.horizonsend.ion.server.features.economy.city.TradeCityType
 import net.horizonsend.ion.server.features.nations.gui.anvilInput
 import net.horizonsend.ion.server.features.nations.gui.playerClicker
 import net.horizonsend.ion.server.features.nations.region.Regions
-import net.horizonsend.ion.server.miscellaneous.utils.LegacyItemUtils
 import net.horizonsend.ion.server.miscellaneous.utils.MenuHelper
 import net.horizonsend.ion.server.miscellaneous.utils.Tasks
 import net.horizonsend.ion.server.miscellaneous.utils.VAULT_ECO
@@ -230,12 +228,7 @@ object Bazaars : IonServerComponent() {
 			} else {
 				val lore = mutableListOf<String>()
 
-				lore += "&fBuy $currentAmount of $name for ${(item.price * currentAmount * priceMult).roundToHundredth()}"
-
-				if (!LegacyItemUtils.canFit(player.inventory, fromItemString(item.itemString), currentAmount)) {
-					lore += "&cWARNING: Amount is larger than may fit in your inventory."
-					lore += "&cAdding additional items may result in their stacks getting deleted."
-				}
+				lore += "&fBuy $currentAmount of $name for ${item.price * currentAmount * priceMult}"
 
 				if (priceMult > 1) {
 					lore += "(Price multiplied x $priceMult due to browsing remotely)"

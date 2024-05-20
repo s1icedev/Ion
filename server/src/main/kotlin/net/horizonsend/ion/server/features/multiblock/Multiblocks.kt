@@ -5,9 +5,8 @@ import net.horizonsend.ion.common.extensions.userError
 import net.horizonsend.ion.server.IonServerComponent
 import net.horizonsend.ion.server.features.achievements.Achievement
 import net.horizonsend.ion.server.features.achievements.rewardAchievement
-import net.horizonsend.ion.server.features.multiblock.ammo.AmmoLoaderMultiblock
-import net.horizonsend.ion.server.features.multiblock.ammo.MissileLoaderMultiblock
-import net.horizonsend.ion.server.features.multiblock.ammo.StandardAmmoPressMultiblock
+import net.horizonsend.ion.server.features.multiblock.ammopress.AmmoLoaderMultiblock
+import net.horizonsend.ion.server.features.multiblock.ammopress.StandardAmmoPressMultiblock
 import net.horizonsend.ion.server.features.multiblock.areashield.AreaShield10
 import net.horizonsend.ion.server.features.multiblock.areashield.AreaShield20
 import net.horizonsend.ion.server.features.multiblock.areashield.AreaShield30
@@ -18,9 +17,6 @@ import net.horizonsend.ion.server.features.multiblock.autocrafter.AutoCrafterMul
 import net.horizonsend.ion.server.features.multiblock.charger.ChargerMultiblockTier1
 import net.horizonsend.ion.server.features.multiblock.charger.ChargerMultiblockTier2
 import net.horizonsend.ion.server.features.multiblock.charger.ChargerMultiblockTier3
-import net.horizonsend.ion.server.features.multiblock.checklist.BargeReactorMultiBlock
-import net.horizonsend.ion.server.features.multiblock.checklist.BattleCruiserReactorMultiblock
-import net.horizonsend.ion.server.features.multiblock.checklist.CruiserReactorMultiblock
 import net.horizonsend.ion.server.features.multiblock.defense.AntiAirCannonBaseMultiblock
 import net.horizonsend.ion.server.features.multiblock.dockingtube.ConnectedDockingTubeMultiblock
 import net.horizonsend.ion.server.features.multiblock.dockingtube.DisconnectedDockingTubeMultiblock
@@ -57,8 +53,6 @@ import net.horizonsend.ion.server.features.multiblock.mininglasers.MiningLaserMu
 import net.horizonsend.ion.server.features.multiblock.mininglasers.MiningLaserMultiblockTier2Top
 import net.horizonsend.ion.server.features.multiblock.mininglasers.MiningLaserMultiblockTier3Bottom
 import net.horizonsend.ion.server.features.multiblock.mininglasers.MiningLaserMultiblockTier3Top
-import net.horizonsend.ion.server.features.multiblock.mininglasers.MiningLaserMultiblockTier4Bottom
-import net.horizonsend.ion.server.features.multiblock.mininglasers.MiningLaserMultiblockTier4Top
 import net.horizonsend.ion.server.features.multiblock.misc.AirlockMultiblock
 import net.horizonsend.ion.server.features.multiblock.misc.CryoPodMultiblock
 import net.horizonsend.ion.server.features.multiblock.misc.DecomposerMultiblock
@@ -108,8 +102,8 @@ import net.horizonsend.ion.server.features.multiblock.starshipweapon.heavy.Downw
 import net.horizonsend.ion.server.features.multiblock.starshipweapon.heavy.HeavyLaserStarshipWeaponMultiblock
 import net.horizonsend.ion.server.features.multiblock.starshipweapon.heavy.HorizontalRocketStarshipWeaponMultiblock
 import net.horizonsend.ion.server.features.multiblock.starshipweapon.heavy.PhaserStarshipWeaponMultiblock
-import net.horizonsend.ion.server.features.multiblock.starshipweapon.heavy.TopArsenalStarshipWeaponMultiblock
 import net.horizonsend.ion.server.features.multiblock.starshipweapon.heavy.TorpedoStarshipWeaponMultiblock
+import net.horizonsend.ion.server.features.multiblock.starshipweapon.heavy.TopArsenalStarshipWeaponMultiblock
 import net.horizonsend.ion.server.features.multiblock.starshipweapon.heavy.UpwardRocketStarshipWeaponMultiblock
 import net.horizonsend.ion.server.features.multiblock.starshipweapon.misc.PointDefenseStarshipWeaponMultiblockBottom
 import net.horizonsend.ion.server.features.multiblock.starshipweapon.misc.PointDefenseStarshipWeaponMultiblockSide
@@ -124,6 +118,7 @@ import net.horizonsend.ion.server.features.multiblock.starshipweapon.turret.TopI
 import net.horizonsend.ion.server.features.multiblock.starshipweapon.turret.TopLightTurretMultiblock
 import net.horizonsend.ion.server.features.multiblock.starshipweapon.turret.TopQuadTurretMultiblock
 import net.horizonsend.ion.server.features.multiblock.starshipweapon.turret.TopTriTurretMultiblock
+import net.horizonsend.ion.server.features.multiblock.supercapreactor.SupercapReactorMultiblock
 import net.horizonsend.ion.server.legacy.starshipweapon.multiblock.CthulhuBeamStarshipWeaponMultiblockBottom
 import net.horizonsend.ion.server.legacy.starshipweapon.multiblock.CthulhuBeamStarshipWeaponMultiblockSide
 import net.horizonsend.ion.server.legacy.starshipweapon.multiblock.CthulhuBeamStarshipWeaponMultiblockTop
@@ -226,7 +221,6 @@ object Multiblocks : IonServerComponent() {
 
 			StandardAmmoPressMultiblock,
 			AmmoLoaderMultiblock,
-			MissileLoaderMultiblock,
 
 			LaserCannonStarshipWeaponMultiblock,
 			PlasmaCannonStarshipWeaponMultiblock,
@@ -261,8 +255,6 @@ object Multiblocks : IonServerComponent() {
 			MiningLaserMultiblockTier2Bottom,
 			MiningLaserMultiblockTier3Top,
 			MiningLaserMultiblockTier3Bottom,
-			MiningLaserMultiblockTier4Top,
-			MiningLaserMultiblockTier4Bottom,
 			TopArsenalStarshipWeaponMultiblock,
 			BottomArsenalStarshipWeaponMultiblock,
 
@@ -294,9 +286,7 @@ object Multiblocks : IonServerComponent() {
 			AntiAirCannonBaseMultiblock,
 //			AntiAirCannonTurretMultiblock,
 
-			BattleCruiserReactorMultiblock,
-			CruiserReactorMultiblock,
-			BargeReactorMultiBlock
+			SupercapReactorMultiblock
 		)
 	}
 
