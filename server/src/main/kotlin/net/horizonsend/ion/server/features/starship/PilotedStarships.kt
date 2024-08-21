@@ -17,6 +17,7 @@ import net.horizonsend.ion.common.extensions.userErrorActionMessage
 import net.horizonsend.ion.common.extensions.userErrorTitle
 import net.horizonsend.ion.common.utils.configuration.redis
 import net.horizonsend.ion.server.IonServerComponent
+import net.horizonsend.ion.server.features.achievements.Achievement
 import net.horizonsend.ion.server.features.ai.spawning.SpawningException
 import net.horizonsend.ion.server.features.cache.PlayerCache
 import net.horizonsend.ion.server.features.nations.utils.playSoundInRadius
@@ -461,6 +462,14 @@ object PilotedStarships : IonServerComponent() {
 			}
 
 			playSoundInRadius(player.location, 10_000.0, pilotSound)
+
+			val achievement = try {
+				Achievement.valueOf("PILOT_${(data.starshipType.actualType.name).replace("AI_", "").uppercase()}")
+			}catch(_: IllegalArgumentException){
+				Achievement.EXPLORATION_ROOT // shouldn't really ever reach this tbh
+			}
+			Achievement.PILOT_SHIP.rewardAdvancement(player)
+			achievement.rewardAdvancement(player)
 
 			callback(activePlayerStarship)
 		}

@@ -26,6 +26,7 @@ import net.horizonsend.ion.common.utils.text.ofChildren
 import net.horizonsend.ion.common.utils.text.repeatString
 import net.horizonsend.ion.common.utils.text.template
 import net.horizonsend.ion.server.command.SLCommand
+import net.horizonsend.ion.server.features.achievements.Achievement
 import net.horizonsend.ion.server.features.cache.PlayerCache
 import net.horizonsend.ion.server.features.economy.city.TradeCities
 import net.horizonsend.ion.server.features.nations.NATIONS_BALANCE
@@ -35,8 +36,6 @@ import net.horizonsend.ion.server.features.nations.utils.isActive
 import net.horizonsend.ion.server.features.nations.utils.isInactive
 import net.horizonsend.ion.server.features.nations.utils.isSemiActive
 import net.horizonsend.ion.server.features.player.CombatTimer
-import net.horizonsend.ion.server.features.progression.achievements.Achievement
-import net.horizonsend.ion.server.features.progression.achievements.rewardAchievement
 import net.horizonsend.ion.server.miscellaneous.utils.*
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.Component.newline
@@ -114,7 +113,7 @@ internal object SettlementCommand : SLCommand() {
 		Settlement.create(territory.id, name, sender.slPlayerId)
 		VAULT_ECO.withdrawPlayer(sender, realCost.toDouble())
 
-		sender.rewardAchievement(Achievement.CREATE_SETTLEMENT)
+		Achievement.CREATE_SETTLEMENT.rewardAdvancement(sender)
 
 		Notify.chatAndEvents(settlementMessageFormat(
 			"{0} has founded the settlement {1} in {2} on {3}",
@@ -208,6 +207,8 @@ internal object SettlementCommand : SLCommand() {
 		failIf(!Settlement.isInvitedTo(settlementId, sender.slPlayerId)) { "You're not invited the settlement $settlementName!" }
 
 		SLPlayer.joinSettlement(sender.slPlayerId, settlementId)
+
+		Achievement.JOIN_SETTLEMENT.rewardAdvancement(sender)
 
 		Notify.chatAndGlobal(MiniMessage.miniMessage().deserialize("<green>${sender.name} joined the settlement $settlementName!"))
 

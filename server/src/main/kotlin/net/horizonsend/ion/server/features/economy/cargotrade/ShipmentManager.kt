@@ -18,6 +18,7 @@ import net.horizonsend.ion.common.utils.text.miniMessage
 import net.horizonsend.ion.common.utils.text.ofChildren
 import net.horizonsend.ion.common.utils.text.toComponent
 import net.horizonsend.ion.server.IonServerComponent
+import net.horizonsend.ion.server.features.achievements.Achievement
 import net.horizonsend.ion.server.features.cache.PlayerCache
 import net.horizonsend.ion.server.features.cache.trade.CargoCrates
 import net.horizonsend.ion.server.features.custom.items.CustomItemRegistry
@@ -30,8 +31,6 @@ import net.horizonsend.ion.server.features.gui.custom.misc.anvilinput.validator.
 import net.horizonsend.ion.server.features.nations.region.Regions
 import net.horizonsend.ion.server.features.nations.region.types.RegionTerritory
 import net.horizonsend.ion.server.features.progression.SLXP
-import net.horizonsend.ion.server.features.progression.achievements.Achievement
-import net.horizonsend.ion.server.features.progression.achievements.rewardAchievement
 import net.horizonsend.ion.server.features.space.Space
 import net.horizonsend.ion.server.features.starship.StarshipType
 import net.horizonsend.ion.server.features.starship.TypeCategory
@@ -253,6 +252,9 @@ object ShipmentManager : IonServerComponent() {
 					return@sync player.serverError("Shipment is not available")
 				}
 				completePurchase(player, shipment, item, count)
+
+				Achievement.BUY_CRATE.rewardAdvancement(player)
+
 				player.closeInventory()
 			}
 		}
@@ -451,7 +453,7 @@ object ShipmentManager : IonServerComponent() {
 				}
 			}
 		}
-		player.rewardAchievement(Achievement.COMPLETE_CARGO_RUN)
+		Achievement.SELL_CRATE.rewardAdvancement(player)
 	}
 
 	private fun giveSettlementProfit(playerName: String, city: TradeCityData, tax: Int) {

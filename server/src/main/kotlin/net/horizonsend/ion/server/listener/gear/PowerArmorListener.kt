@@ -2,6 +2,9 @@ package net.horizonsend.ion.server.listener.gear
 
 import com.destroystokyo.paper.event.entity.EntityKnockbackByEntityEvent
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
+import net.horizonsend.ion.common.database.cache.nations.NationCache
+import net.horizonsend.ion.server.features.achievements.Achievement
+import net.horizonsend.ion.server.features.cache.PlayerCache
 import net.horizonsend.ion.server.features.custom.items.CustomItemRegistry.customItem
 import net.horizonsend.ion.server.features.custom.items.component.CustomComponentTypes
 import net.horizonsend.ion.server.features.custom.items.component.CustomComponentTypes.Companion.POWER_STORAGE
@@ -142,6 +145,7 @@ object PowerArmorListener : SLEventListener() {
 		if (power <= 0) return
 
 		setGliding(player, true)
+		Achievement.USE_ROCKET_BOOTS.rewardAdvancement(player)
 	}
 
 	@EventHandler

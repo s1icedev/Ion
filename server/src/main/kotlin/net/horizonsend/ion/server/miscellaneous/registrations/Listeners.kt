@@ -85,7 +85,7 @@ val listeners: List<Listener> = listOf(
 	PrePackaged,
 
 	// Achievement Listeners
-	AchievementListeners(),
+	AchievementListeners,
 	WaypointListeners(),
 
 	//Packet Listeners
