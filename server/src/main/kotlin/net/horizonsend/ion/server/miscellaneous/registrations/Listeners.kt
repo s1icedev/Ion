@@ -84,8 +84,6 @@ val listeners: List<Listener> = listOf(
 	MultiblockEntities,
 	PrePackaged,
 
-	// Achievement Listeners
-	AchievementListeners,
 	WaypointListeners(),
 
 	//Packet Listeners
