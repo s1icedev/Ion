@@ -84,7 +84,7 @@ import net.horizonsend.ion.server.features.gui.custom.settings.commands.ControlS
 import net.horizonsend.ion.server.features.gui.custom.settings.commands.SettingsCommand
 import net.horizonsend.ion.server.features.multiblock.ModelCreator
 import net.horizonsend.ion.server.features.player.NewPlayerProtection
-import net.horizonsend.ion.server.features.progression.achievements.AchievementsCommand
+import net.horizonsend.ion.server.features.achievements.AchievementsCommand
 import net.horizonsend.ion.server.features.sidebar.command.BookmarkCommand
 import net.horizonsend.ion.server.features.sidebar.command.SidebarCommand
 import net.horizonsend.ion.server.features.sidebar.command.SidebarContactsCommand
