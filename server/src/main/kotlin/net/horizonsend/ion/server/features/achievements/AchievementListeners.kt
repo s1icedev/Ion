@@ -42,11 +42,10 @@ object AchievementListeners : IonServerComponent() {
 			Achievement.VISIT_ALL_SYSTEMS.key -> {
 				Achievement.VISIT_ALL_SYSTEMS.rewardAdvancement(event.player)
 			}
-			/*
 			Achievement.SINK_EACH_AI_SHIP.key -> {
 				Achievement.SINK_EACH_AI_SHIP.rewardAdvancement(event.player)
 			}
-			*/
+
 
 		}
 	}
