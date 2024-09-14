@@ -11,6 +11,7 @@ import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.litote.kmongo.addToSet
+import org.litote.kmongo.pull
 
 enum class Achievement(
 	val title: String?, //nullable for multi-condition advancements
@@ -104,9 +105,9 @@ enum class Achievement(
 
 	ADD_PILOT("Take the Keys", "Add a player as a pilot on a starship", 100, 100, 0, "exploration/add_pilot", "add_pilot", false), // s1ice
 	ADD_PILOT_BATTLECRUISER("Don't Scratch the Paint", "Add a player as a pilot on a Battlecruiser", 100, 100, 0, "exploration/add_pilot_battlecruiser", "add_pilot_battlecruiser", false), // s1ice
-	BUY_BAZAAR("Ooh, Shiny!", "Buy something from a bazaar", 0, 0, 0, "exploration/buy_bazaar", "buy_bazaar", false), // s1ice
-	REMOTE_BUY_BAZAAR("Same-Day Delivery", "Remotely buy something from a Bazaar", 100, 100, 0, "exploration/remote_buy_bazaar", "remote_buy_bazaar", false), // s1ice
-	SELL_BAZAAR("Community Market", "Put up an item up on the bazaar", 0, 0, 0, "exploration/sell_bazaar", "sell_bazaar", false), // s1ice
+	BUY_BAZAAR("Ooh, Shiny!", "Buy something from a bazaar", 0, 100, 0, "exploration/buy_bazaar", "buy_bazaar", false), // s1ice
+	REMOTE_BUY_BAZAAR("Same-Day Delivery", "Remotely buy something from a Bazaar", 0, 100, 0, "exploration/remote_buy_bazaar", "remote_buy_bazaar", false), // s1ice
+	SELL_BAZAAR("Community Market", "Put up an item up on the bazaar", 100, 100, 0, "exploration/sell_bazaar", "sell_bazaar", false), // s1ice
 	MILLION_BAZAAR_PROFIT("Capitalist", "Profit 1 million credits from bazaar listings", 1000, 500, 0, "exploration/1_mil_bazaar_profit", "1_mil_bazaar_profit", false), // s1ice
 	KILL_PLAYER("Carried Away", "Kill a player", 250, 100, 0, "exploration/kill_player", "kill_player", false), // Astral
 	KILL_CAPTAIN("Mutiny", "Kill a player piloting a ship, as their passenger", 500, 250, 0, "exploration/kill_captain", "kill_captain", false), // s1ice
@@ -208,32 +209,32 @@ enum class Achievement(
 
 	/** ---------------------------------------- ANY-CRITERION ADVANCEMENTS ---------------------------------------- **/
 
-	OBTAIN_POWER_DRILL_BASIC("Tools of the Future", "Obtain a Basic Power Tool", 250, 100, 0, "technology/obtain_basic_power_tool","obtain_basic_power_tool", false), // s1ice
+	OBTAIN_POWER_DRILL_BASIC(	"Tools of the Future", "Obtain a Basic Power Tool", 250, 100, 0, "technology/obtain_basic_power_tool","obtain_basic_power_tool", false), // s1ice
 	OBTAIN_POWER_CHAINSAW_BASIC("Tools of the Future", "Obtain a Basic Power Tool", 250, 100, 0, "technology/obtain_basic_power_tool","obtain_basic_power_tool", false), // s1ice
-	OBTAIN_POWER_HOE_BASIC("Tools of the Future", "Obtain a Basic Power Tool", 250, 100, 0, "technology/obtain_basic_power_tool","obtain_basic_power_tool", false), // s1ice
+	OBTAIN_POWER_HOE_BASIC(		"Tools of the Future", "Obtain a Basic Power Tool", 250, 100, 0, "technology/obtain_basic_power_tool","obtain_basic_power_tool", false), // s1ice
 
-	OBTAIN_POWER_DRILL_ENHANCED("Tools of the Future", "Obtain a Enhanced Power Tool", 500, 250, 0, "technology/obtain_enhanced_power_tool","obtain_enhanced_power_tool", false), // s1ice
-	OBTAIN_POWER_CHAINSAW_ENHANCED("Tools of the Future", "Obtain a Enhanced Power Tool", 500, 250, 0, "technology/obtain_enhanced_power_tool","obtain_enhanced_power_tool", false), // s1ice
-	OBTAIN_POWER_HOE_ENHANCED("Tools of the Future", "Obtain a Enhanced Power Tool", 500, 250, 0, "technology/obtain_enhanced_power_tool","obtain_enhanced_power_tool", false), // s1ice
+	OBTAIN_POWER_DRILL_ENHANCED(	"New Tool, Who Dis", "Obtain a Enhanced Power Tool", 500, 250, 0, "technology/obtain_enhanced_power_tool","obtain_enhanced_power_tool", false), // s1ice
+	OBTAIN_POWER_CHAINSAW_ENHANCED( "New Tool, Who Dis", "Obtain a Enhanced Power Tool", 500, 250, 0, "technology/obtain_enhanced_power_tool","obtain_enhanced_power_tool", false), // s1ice
+	OBTAIN_POWER_HOE_ENHANCED(		"New Tool, Who Dis", "Obtain a Enhanced Power Tool", 500, 250, 0, "technology/obtain_enhanced_power_tool","obtain_enhanced_power_tool", false), // s1ice
 
-	OBTAIN_POWER_DRILL_ADVANCED("Tools of the Future", "Obtain a Advanced Power Tool", 750, 500, 0, "technology/obtain_advanced_power_tool","obtain_advanced_power_tool", false), // s1ice
-	OBTAIN_POWER_CHAINSAW_ADVANCED("Tools of the Future", "Obtain a Advanced Power Tool", 750, 500, 0, "technology/obtain_advanced_power_tool","obtain_advanced_power_tool", false), // s1ice
-	OBTAIN_POWER_HOE_ADVANCED("Tools of the Future", "Obtain a Advanced Power Tool", 750, 500, 0, "technology/obtain_advanced_power_tool","obtain_advanced_power_tool", false), // s1ice
+	OBTAIN_POWER_DRILL_ADVANCED(	"Maximum Modularity", "Obtain an Advanced Power Tool", 750, 500, 0, "technology/obtain_advanced_power_tool","obtain_advanced_power_tool", false), // s1ice
+	OBTAIN_POWER_CHAINSAW_ADVANCED( "Maximum Modularity", "Obtain an Advanced Power Tool", 750, 500, 0, "technology/obtain_advanced_power_tool","obtain_advanced_power_tool", false), // s1ice
+	OBTAIN_POWER_HOE_ADVANCED(		"Maximum Modularity", "Obtain an Advanced Power Tool", 750, 500, 0, "technology/obtain_advanced_power_tool","obtain_advanced_power_tool", false), // s1ice
 
 	/** ---------------------------------------- MULTI-CRITERION ADVANCEMENTS ---------------------------------------- **/
 
-	OBTAIN_ALL_CORES("Warship Cores!?", "Obtain all 3 Supercapital Cores", 5000, 1000, 0, "", "", true), // s1ice
+	OBTAIN_ALL_CORES("Warship Cores!?", "Obtain all 3 Supercapital Cores", 5000, 1000, 0, "exploration/obtain_all_cores", "",true),  // s1ice
 	OBTAIN_BATTLECRUISER_REACTOR_CORE(null, null, 500, 750, 0, "exploration/obtain_all_cores", "obtain_battlecruiser_core", false), // s1ice
 	OBTAIN_CRUISER_REACTOR_CORE(	  null, null, 500, 750, 0, "exploration/obtain_all_cores", "obtain_cruiser_core", 		false), // s1ice
 	OBTAIN_BARGE_REACTOR_CORE(		  null, null, 500, 750, 0, "exploration/obtain_all_cores", "obtain_barge_core", 		false), // s1ice
 
-	OBTAIN_ALL_POWER_ARMOR("Honey, Where's My Super-suit?", "Obtain all 4 pieces of Power Armor", 500, 250, 0, "", "", 	true), // s1ice
+	OBTAIN_ALL_POWER_ARMOR("Honey, Where's My Super-suit?", "Obtain all 4 pieces of Power Armor", 500, 250, 0, "technology/obtain_all_power_armor", "",  true),  // s1ice
 	OBTAIN_POWER_ARMOR_HELMET(		null, null, 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_helmet", 	false), // s1ice
 	OBTAIN_POWER_ARMOR_CHESTPLATE(	null, null, 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_chestplate",false), // s1ice
 	OBTAIN_POWER_ARMOR_LEGGINGS(	null, null, 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_leggings", 	false), // s1ice
 	OBTAIN_POWER_ARMOR_BOOTS(		null, null, 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_boots", 	false), // s1ice
 
-	SINK_EACH_AI_SHIP("Man Ms. Machine", "Sink at least one AI ship from every faction", 5000, 2500, 0, "", "", true), // s1ice
+	SINK_EACH_AI_SHIP("Man Vs. Machine", "Sink an AI ship from each faction", 5000, 2500, 0, "exploration/sink_each_ai_ship", "", true),  // s1ice
 	SINK_吃饭人(					null, null, 0, 0, 0, "exploration/sink_each_ai_ship", "sink_吃饭人", 				false), // s1ice
 	SINK_WATCHERS(				null, null, 0, 0, 0, "exploration/sink_each_ai_ship", "sink_watchers", 				false), // s1ice
 	SINK_MINING_GUILD(			null, null, 0, 0, 0, "exploration/sink_each_ai_ship", "sink_mining_guild", 			false), // s1ice
@@ -242,7 +243,7 @@ enum class Achievement(
 	SINK_TSAII_RAIDERS(			null, null, 0, 0, 0, "exploration/sink_each_ai_ship", "sink_tsaii_raiders", 		false), // s1ice
 	SINK_PIRATES(				null, null, 0, 0, 0, "exploration/sink_each_ai_ship", "sink_pirates", 				false), // s1ice
 
-	VISIT_ALL_PLANETS("Mr. Worldwide", "Visit Every Planet", 7500, 2500, 0, "", "", true), // s1ice
+	VISIT_ALL_PLANETS("Mr. Worldwide", "Visit Every Planet", 7500, 2500, 0, "exploration/visit_all_planets", "", true),  // s1ice
 	VISIT_AERACH(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_aerach", 	false), // s1ice
 	VISIT_ARET(		null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_aret", 	false), // s1ice
 	VISIT_CHANDRA(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_chandra", 	false), // s1ice
@@ -261,14 +262,14 @@ enum class Achievement(
 	VISIT_TURMS(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_turms", 	false), // s1ice
 	VISIT_VASK(		null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_vask", 	false), // s1ice
 
-	VISIT_ALL_SYSTEMS("Galactic Explorer", "Visit every system", 2500, 1000, 0, "", "", true), // s1ice
+	VISIT_ALL_SYSTEMS("Galactic Explorer", "Visit every system", 2500, 1000, 0, "exploration/visit_all_systems", "", true),  // s1ice
  	VISIT_ASTERI( null, null, 200, 250, 0, "exploration/visit_all_systems", "visit_asteri",  false), // s1ice
 	VISIT_ILIOS(  null, null, 200, 250, 0, "exploration/visit_all_systems", "visit_ilios",   false), // s1ice
 	VISIT_REGULUS(null, null, 200, 250, 0, "exploration/visit_all_systems", "visit_regulus", false), // s1ice
 	VISIT_SIRIUS( null, null, 200, 250, 0, "exploration/visit_all_systems", "visit_sirius",  false), // s1ice
-	VISIT_HORIZON(null, null, 200, 250, 0, "exploration/visit_all_systems", "visit_horizon", false), // s1ice
-	VISIT_TRENCH( null, null, 200, 250, 0, "exploration/visit_all_systems", "visit_trench",  false), // s1ice
-	VISIT_AU_0821(null, null, 200, 400, 0, "exploration/visit_all_systems", "visit_au_0821", false); // s1ice
+	VISIT_HORIZON(null, null, 200, 375, 0, "exploration/visit_all_systems", "visit_horizon", false), // s1ice
+	VISIT_TRENCH( null, null, 200, 500, 0, "exploration/visit_all_systems", "visit_trench",  false), // s1ice
+	VISIT_AU_0821(null, null, 200, 500, 0, "exploration/visit_all_systems", "visit_au_0821", false); // s1ice
 
 	/** ---------------------------------------- END OF ADVANCEMENT LIST ---------------------------------------- **/
 
@@ -281,10 +282,9 @@ enum class Achievement(
 		if(!resultAdvancement) {
 			val advancement = Bukkit.getAdvancement(NamespacedKey("horizonsend", key))
 
-			if(advancement?.let { player.getAdvancementProgress(it).isDone } == false) // if advancement's not done
-				Tasks.sync {player.getAdvancementProgress(advancement).awardCriteria(criteria)}
-			else return@async
-
+			if(advancement?.let { player.getAdvancementProgress(it).isDone } == false) {// if advancement's not done
+				Tasks.sync { player.getAdvancementProgress(advancement).awardCriteria(criteria) }
+			}
 		}
 
 		SLPlayer.updateById(playerData._id, addToSet(SLPlayer::achievements, name))
@@ -311,5 +311,21 @@ enum class Achievement(
 			)
 
 		if(message != "") player.sendRichMessage(message)
+	}
+
+	fun revokeAdvancement(player: Player) = Tasks.async {
+		if (!LegacySettings.master) return@async
+
+		val playerData = SLPlayer[player]
+		if (playerData.achievements.map { Achievement.valueOf(it) }.find { it == this } == null) return@async
+
+		SLPlayer.updateById(playerData._id, pull(SLPlayer::achievements, name))
+		if(!resultAdvancement) {
+			val advancement = Bukkit.getAdvancement(NamespacedKey("horizonsend", key))
+
+			if(advancement?.let { player.getAdvancementProgress(it).isDone } != null) {// if advancement exists / has any form of progress
+				Tasks.sync { player.getAdvancementProgress(advancement).revokeCriteria(criteria) }
+			}
+		}
 	}
 }

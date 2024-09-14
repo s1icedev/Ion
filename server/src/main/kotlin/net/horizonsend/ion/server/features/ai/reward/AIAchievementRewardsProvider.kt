@@ -27,8 +27,12 @@ class AIAchievementRewardsProvider(val controller: AIController) : RewardsProvid
 		Tasks.async {
 			players.forEach { player ->
 				SLPlayerStatistic.incStatistic(player.slPlayerId, SLPlayerStatistic::aiShipsKilled, 1)
+
 				Achievement.SINK_AI_SHIP.rewardAdvancement(player)
-				if(SLPlayerStatistic.getAIShipsKilled(player.slPlayerId) == 1000) Achievement.SINK_1K_AI_SHIPS.rewardAdvancement(player)
+
+				if(SLPlayerStatistic.getAIShipsKilled(player.slPlayerId) == 1000) {
+					Achievement.SINK_1K_AI_SHIPS.rewardAdvancement(player)
+				}
 			}
 
 			controller.modules["faction"]?.let {
@@ -39,16 +43,11 @@ class AIAchievementRewardsProvider(val controller: AIController) : RewardsProvid
 				players.forEach { player ->
 					achievement?.rewardAdvancement(player)
 
-					val new = SLPlayerStatistic.incrementFactionKIll(player.slPlayerId, id)
+					SLPlayerStatistic.incrementFactionKIll(player.slPlayerId, id)
 
-					if(it.faction == AIFaction.WATCHERS || it.faction == AIFaction.吃饭人) Achievement.SINK_ALIEN_SHIP.rewardAdvancement(player)
-
-					/*
-					//rewarded in AchievementListeners.kt
-					if (new.keys.size == AIFaction.factions.size) {
-						Achievement.SINK_EACH_AI_SHIP.rewardAdvancement(player)
+					if(it.faction == AIFaction.WATCHERS || it.faction == AIFaction.吃饭人) {
+						Achievement.SINK_ALIEN_SHIP.rewardAdvancement(player)
 					}
-					*/
 				}
 			}
 		}

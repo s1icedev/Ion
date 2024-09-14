@@ -463,13 +463,11 @@ object PilotedStarships : IonServerComponent() {
 
 			playSoundInRadius(player.location, 10_000.0, pilotSound)
 
-			val achievement = try {
-				Achievement.valueOf("PILOT_${(data.starshipType.actualType.name).replace("AI_", "").uppercase()}")
-			}catch(_: IllegalArgumentException){
-				Achievement.EXPLORATION_ROOT // shouldn't really ever reach this tbh
-			}
 			Achievement.PILOT_SHIP.rewardAdvancement(player)
-			achievement.rewardAdvancement(player)
+
+			val shipType = (data.starshipType.actualType.name).replace("AI_", "")
+			val achievement = runCatching { Achievement.valueOf("PILOT_${shipType.uppercase()}") }.getOrNull()
+			achievement?.rewardAdvancement(player)
 
 			callback(activePlayerStarship)
 		}

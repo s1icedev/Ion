@@ -15,7 +15,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerAdvancementDoneEvent
 import org.bukkit.event.player.PlayerChangedWorldEvent
-import org.bukkit.inventory.ItemStack
 
 object AchievementListeners : IonServerComponent() {
 
@@ -25,11 +24,11 @@ object AchievementListeners : IonServerComponent() {
 
 	@EventHandler
 	@Suppress("Unused")
-	fun onPlayerAdvancementDoneEvent(event: PlayerAdvancementDoneEvent){
+	fun onPlayerAdvancementDoneEvent(event: PlayerAdvancementDoneEvent) {
 		/* listener for the final reward of all multi-criterion advancements */
 
 		val key = event.advancement.key.key //String
-		when(key){
+		when( key ) {
 			Achievement.OBTAIN_ALL_CORES.key -> {
 				Achievement.OBTAIN_ALL_CORES.rewardAdvancement(event.player)
 			}
@@ -46,7 +45,6 @@ object AchievementListeners : IonServerComponent() {
 				Achievement.SINK_EACH_AI_SHIP.rewardAdvancement(event.player)
 			}
 
-
 		}
 	}
 
@@ -54,27 +52,21 @@ object AchievementListeners : IonServerComponent() {
 	@Suppress("Unused")
 	fun onPlayerDeathEvent(event: PlayerDeathEvent) {
 		val killer = event.entity.killer ?: return // Only player kills
-		if (killer !== event.player) Achievement.KILL_PLAYER.rewardAdvancement(killer)
+		if (killer !== event.player) {
+			Achievement.KILL_PLAYER.rewardAdvancement(killer)
+		}
 	}
-
-/* UNUSED EVENT */
-//	@EventHandler(priority = EventPriority.MONITOR)
-//	@Suppress("Unused")
-//	fun onDetectShip(event: StarshipDetectEvent) {
-//		Achievement.DETECT_SHIP.rewardAdvancement(event.player)
-//	}
 
 	@EventHandler
 	@Suppress("Unused")
-	fun onPlayerChangedWorldEvent(event: PlayerChangedWorldEvent){
+	fun onPlayerChangedWorldEvent(event: PlayerChangedWorldEvent) {
 		val player = event.player
 		if(player.world.ion.hasFlag(WorldFlag.SPACE_WORLD)){
 			Achievement.ENTER_SPACE.rewardAdvancement(player)
 		}
-		val advancement = try{
-			Achievement.valueOf("VISIT_${(player.world.name).uppercase()}")
-		}catch(_: IllegalArgumentException){ return }
-		advancement.rewardAdvancement(player)
+
+		val achievement = runCatching { Achievement.valueOf("VISIT_${(player.world.name).uppercase()}") }.getOrNull()
+		achievement?.rewardAdvancement(player)
 	}
 
 	@EventHandler
@@ -82,7 +74,24 @@ object AchievementListeners : IonServerComponent() {
 	fun onPlayerAttemptPickupItemEvent(event: PlayerInventorySlotChangeEvent) {
 		val player = event.player
 		val item = event.newItemStack
-		detectObtainedItem(player, item)
+
+		if (item.type == Material.AIR) return // dropped item
+
+		val legacyCustomItem = CustomItems[item] // legacy custom items (like power armor)
+		val newCustomItem = item.customItem		 // normal custom items
+
+		val customItemName: String? = legacyCustomItem?.id ?: newCustomItem?.identifier
+
+		if(customItemName != null) {
+			rewardObtainedItemAdvancement(player, customItemName)
+		} else {
+			rewardObtainedItemAdvancement(player, item.type.name)
+		}
+	}
+
+	private fun rewardObtainedItemAdvancement(player: Player, name: String) {
+		val achievement = runCatching { Achievement.valueOf("OBTAIN_${name.uppercase()}") }.getOrNull()
+		achievement?.rewardAdvancement(player)
 	}
 
 /*  currently using PlayerChangedWorldEvent, EnterPlanetEvent may be used later */
@@ -94,13 +103,17 @@ object AchievementListeners : IonServerComponent() {
 //
 //		when (event.newWorld.name.lowercase()) {
 //
-//			else -> return
 //		}
+//	}
+
+//	@EventHandler(priority = EventPriority.MONITOR)
+//	@Suppress("Unused")
+//	fun onDetectShip(event: StarshipDetectEvent) {
 //
 //	}
 
 	private fun checkBalances() {
-		Tasks.asyncRepeat(20L, 20L){
+		Tasks.asyncRepeat(20L, 20L) {
 			for (player in Bukkit.getOnlinePlayers()) {
 				val num = vaultEconomy?.getBalance(player) ?: continue
 				when {
@@ -113,29 +126,5 @@ object AchievementListeners : IonServerComponent() {
 				}
 			}
 		}
-	}
-
-	private fun detectObtainedItem(player: Player, item: ItemStack){
-		if (item.type == Material.AIR) return // dropped item
-
-		/* include legacy custom items (like power armor) */
-		val legacyCustomItem = CustomItems[item]
-		val newCustomItem = item.customItem
-
-		val customItemName: String? = legacyCustomItem?.id?.uppercase() ?: newCustomItem?.identifier?.uppercase()
-
-		//if(customItemName != null) println("picked up custom item: $customItemName")
-
-		//vanilla items
-		val itemName = if(customItemName == null) (item.type.name.uppercase()) else null
-		//if(itemName != null) println("picked up item: $itemName")
-
-		/* try custom item name, if null then vanilla item name, if null then return (somehow? IDK) */
-		val name = customItemName ?: itemName ?: return
-
-		val advancement = try{
-			Achievement.valueOf("OBTAIN_${name}")
-		}catch(_: IllegalArgumentException){ return } // picked up item doesn't give an achievement
-		advancement.rewardAdvancement(player)
 	}
 }
