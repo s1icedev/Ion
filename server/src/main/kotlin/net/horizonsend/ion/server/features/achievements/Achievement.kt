@@ -279,11 +279,12 @@ enum class Achievement(
 		val playerData = SLPlayer[player]
 		if (playerData.achievements.map { Achievement.valueOf(it) }.find { it == this } != null) return@async
 
-		if(!resultAdvancement) {
+		if(!resultAdvancement) { // result advancements aren't tied to a criteria
 			val advancement = Bukkit.getAdvancement(NamespacedKey("horizonsend", key))
 
 			if(advancement?.let { player.getAdvancementProgress(it).isDone } == false) {// if advancement's not done
 				Tasks.sync { player.getAdvancementProgress(advancement).awardCriteria(criteria) }
+				println("rewarded advancement criteria $criteria for ${player.name}")
 			}
 		}
 
@@ -317,14 +318,18 @@ enum class Achievement(
 		if (!LegacySettings.master) return@async
 
 		val playerData = SLPlayer[player]
-		if (playerData.achievements.map { Achievement.valueOf(it) }.find { it == this } == null) return@async
-
-		SLPlayer.updateById(playerData._id, pull(SLPlayer::achievements, name))
-		if(!resultAdvancement) {
+		if (playerData.achievements.map { Achievement.valueOf(it) }.find { it == this } != null) {
+			SLPlayer.updateById(playerData._id, pull(SLPlayer::achievements, name))
+			println("removed [$name] achievement from ${player.name}")
+		}
+		if(!resultAdvancement) { // result advancements aren't tied to a criteria
 			val advancement = Bukkit.getAdvancement(NamespacedKey("horizonsend", key))
 
 			if(advancement?.let { player.getAdvancementProgress(it).isDone } != null) {// if advancement exists / has any form of progress
-				Tasks.sync { player.getAdvancementProgress(advancement).revokeCriteria(criteria) }
+				Tasks.sync {
+					player.getAdvancementProgress(advancement).revokeCriteria(criteria)
+					println("removed advancement criteria $criteria from ${player.name}")
+				}
 			}
 		}
 	}
