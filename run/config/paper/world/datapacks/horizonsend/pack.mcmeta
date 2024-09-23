@@ -1,6 +1,14 @@
 {
-	"pack": {
-		"pack_format": 10,
-		"description": "Horizon's End Datapack"	
-	}
+    "pack": {
+        "pack_format": 10,
+        "description": "Horizon's End Datapack"
+    },
+    "filter": {
+        "block": [
+            {
+                "namespace": "minecraft",
+                "path": "advancements/.*"
+            }
+        ]
+    }
 }
