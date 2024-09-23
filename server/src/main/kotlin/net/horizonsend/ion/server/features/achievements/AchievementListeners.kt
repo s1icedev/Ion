@@ -61,8 +61,11 @@ object AchievementListeners : IonServerComponent() {
 	@Suppress("Unused")
 	fun onPlayerChangedWorldEvent(event: PlayerChangedWorldEvent) {
 		val player = event.player
-		if(player.world.ion.hasFlag(WorldFlag.SPACE_WORLD)){
+		if(player.world.ion.hasFlag(WorldFlag.SPACE_WORLD)) {
 			Achievement.ENTER_SPACE.rewardAdvancement(player)
+		}
+		if(player.world.name.contains("Trench", true) || player.world.name.contains("AU-0821",true)) {
+			Achievement.ENTER_NULL_SPACE.rewardAdvancement(player)
 		}
 
 		val achievement = runCatching { Achievement.valueOf("VISIT_${(player.world.name).uppercase()}") }.getOrNull()
@@ -121,8 +124,8 @@ object AchievementListeners : IonServerComponent() {
 					num >= 1000000.0 -> Achievement.BAL_1M.rewardAdvancement(player)
 					num >= 500000.0 -> Achievement.BAL_500K.rewardAdvancement(player)
 					num >= 100000.0 -> Achievement.BAL_100K.rewardAdvancement(player)
-					num >= 50000.0 -> Achievement.BAL_50K.rewardAdvancement(player)
 					num >= 10000.0 -> Achievement.BAL_10K.rewardAdvancement(player)
+					num >= 1000.0 -> Achievement.BAL_1K.rewardAdvancement(player)
 				}
 			}
 		}

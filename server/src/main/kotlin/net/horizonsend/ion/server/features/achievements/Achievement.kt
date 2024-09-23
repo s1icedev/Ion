@@ -70,7 +70,7 @@ enum class Achievement(
 	 */
 
 //	Template:
-//	TEMPLATE("title", "description", 0, 0, 0, "key", "criteria", false),
+//	TEMPLATE("title", "description", 0, 0, 0, "key", "criteria", false), // s1ice
 	/** -------------------- Exploration -------------------- **/
 	EXPLORATION_ROOT(null, null, 0, 0, 0, "exploration/root", "root", false), // s1ice
 //	COMPLETE_TUTORIAL("Space Cadet", "Complete the Tutorial", 1000, 250, 0, "exploration/complete_tutorial", "complete_tutorial", false), // Wither
@@ -80,8 +80,8 @@ enum class Achievement(
 	SINK_SHIP("Tango Down", "Shoot down a ship", 1000, 250, 0, "exploration/sink_ship", "sink_ship", false), // Vandrayk
 	GET_SUNK("This is Horizon's End", "Get sunk", 500, 100, 0, "exploration/get_sunk", "get_sunk", false), // s1ice
 	ENTER_SPACE("Outer Space!", "Enter Space", 250, 100, 0, "exploration/enter_space", "enter_space", false), // s1ice
-	CREATE_FLEET("Squad Up", "Create a Fleet", 100, 100, 0, "exploration/create_fleet", "create_fleet", false), // s1ice
-	ENTER_HYPERSPACE("Ludicrous Speed!", "Use hyperspace", 250, 75, 8, "exploration/enter_hyperspace", "enter_hyperspace", false), // Liluzivert
+	ENTER_HYPERSPACE("Ludicrous Speed!", "Use hyperspace", 250, 100, 8, "exploration/enter_hyperspace", "enter_hyperspace", false), // Liluzivert
+	ENTER_NULL_SPACE("Danger Zone", "Enter a Null System", 500, 250, 0, "exploration/enter_null_space", "enter_null_space", false), // s1ice
 //	COMPLETE_COMMISSION("Easy Money", "Complete a commission", 250, 100, 0, "exploration/complete_commission", "complete_commission", false), // s1ice
 //	THREE_DAY_STREAK("On a Roll", "Have a 3-day commission streak", 500, 250, 0, "exploration/3_day_streak", "3_day_streak", false), // s1ice
 //	MAX_COMMISSION_STREAK("Starstruck", "Max out your commission streak bonus", 1000, 500, 0, "exploration/max_commission_streak", "max_commission_streak", false), // s1ice
@@ -112,7 +112,7 @@ enum class Achievement(
 	KILL_PLAYER("Carried Away", "Kill a player", 250, 100, 0, "exploration/kill_player", "kill_player", false), // Astral
 	KILL_CAPTAIN("Mutiny", "Kill a player piloting a ship, as their passenger", 500, 250, 0, "exploration/kill_captain", "kill_captain", false), // s1ice
 	KILL_SETTLEMENT_LEADER("Caesar", "Kill a settlement leader, in their settlement", 500, 250, 0, "exploration/kill_settlement_leader", "kill_settlement_leader", false), // s1ice
-	OBTAIN_PLAYER_HEAD("Beheaded!", "Obtain a Player Head", 250, 100, 0, "exploration/obtain_player_head", "obtain_player_head", false), // s1ice
+	OBTAIN_PLAYER_HEAD("XVI", "Obtain a Player Head", 250, 100, 0, "exploration/obtain_player_head", "obtain_player_head", false), // s1ice
 	SINK_AI_SHIP("Enemy Down!", "Sink an AI ship", 250, 100, 0, "exploration/sink_ai", "sink_ai", false), // s1ice
 	SINK_ALIEN_SHIP("Next-Level Threat", "Sink an Alien AI ship", 500, 250, 0, "exploration/sink_alien_ship", "sink_alien_ship", false), // s1ice
 	SINK_1K_AI_SHIPS("Terminator", "Kill 1000 AI ships", 10000, 5000, 0, "exploration/kill_1k_ai_ships", "kill_1k_ai_ships", false), // s1ice
@@ -125,8 +125,8 @@ enum class Achievement(
 	LEVEL_60("The Grind Never Ends","Reach level 60", 6000, 750, 0, "leveling/level_60", "level_60", false), // s1ice
 	LEVEL_80("Overwhelming power", "Reach level 80", 8000, 1000, 0, "leveling/level_80", "level_80", false), // Astral
 	LEVEL_100("Triple Digits!", "Reach level 100", 10000, 0, 0, "leveling/level_100", "level_100", false), // s1ice
-	BAL_10K("Pocket Change", "Have a 10k balance", 0, 100, 0, "leveling/balance_10k", "balance_10k", false), // s1ice
-	BAL_50K("Getting Your Bearings", "Have a 50k balance", 0, 500, 0, "leveling/balance_50k", "balance_50k", false),
+	BAL_1K("Pocket Change", "Have a 1k balance", 0, 100, 0, "leveling/balance_1k", "balance_1k", false), // s1ice
+	BAL_10K("Getting Your Bearings", "Have a 10k balance", 0, 500, 0, "leveling/balance_10k", "balance_10k", false),
 	BAL_100K("The Grind Has Only Begun", "Have a 100k balance", 0, 1000, 0, "leveling/balance_100k", "balance_100k", false), // s1ice
 	BAL_500K("Money, Money, Money", "Have a 500k balance", 0, 2000, 0, "leveling/balance_500k", "balance_500k", false), // s1ice
 	BAL_1M("Millionaire", "Have a 1 mil balance", 0, 5000, 0, "leveling/balance_1mil", "balance_1mil", false), // s1ice
@@ -206,6 +206,11 @@ enum class Achievement(
 	CREATE_SETTLEMENT_STATION("Zero-G Community", "Create a Settlement Space Station", 500, 250, 0, "nations/create_settlement_station", "create_settlement_station", false), // s1ice
 	CREATE_NATION_STATION("Asteroids for All!", "Create a Nation Space Station", 500, 250, 0, "nations/create_nation_station", "create_nation_station", false), // s1ice
 
+	JOIN_FLEET("Enlisted", "Join a Fleet", 100, 100, 0, "nations/join_fleet", "join_fleet", false), // s1ice
+	SINK_IN_FLEET("Team Effort", "Sink a ship while in a fleet", 250, 250, 0, "nations/sink_in_fleet", "sink_in_fleet", false), // s1ice
+	SINK_BROADCASTED_SHIP("Coordinated Strike", "Sink a broadcasted ship", 500, 250, 0, "nations/sink_broadcasted_ship", "sink_broadcasted_ship", false), // s1ice
+	LEAD_FLEET_BATTLECRUISER("Armageddon", "Lead a fleet in a Battlecruiser", 1000, 1000, 0, "nations/lead_fleet_battlecruiser", "lead_fleet_battlecruiser", false), // s1ice
+
 
 	/** ---------------------------------------- ANY-CRITERION ADVANCEMENTS ---------------------------------------- **/
 
@@ -223,10 +228,10 @@ enum class Achievement(
 
 	/** ---------------------------------------- MULTI-CRITERION ADVANCEMENTS ---------------------------------------- **/
 
-	OBTAIN_ALL_CORES("Warship Cores!?", "Obtain all 3 Supercapital Cores", 5000, 1000, 0, "exploration/obtain_all_cores", "",true),  // s1ice
-	OBTAIN_BATTLECRUISER_REACTOR_CORE(null, null, 500, 750, 0, "exploration/obtain_all_cores", "obtain_battlecruiser_core", false), // s1ice
-	OBTAIN_CRUISER_REACTOR_CORE(	  null, null, 500, 750, 0, "exploration/obtain_all_cores", "obtain_cruiser_core", 		false), // s1ice
-	OBTAIN_BARGE_REACTOR_CORE(		  null, null, 500, 750, 0, "exploration/obtain_all_cores", "obtain_barge_core", 		false), // s1ice
+	OBTAIN_ALL_CORES("Warship Cores!?", "Obtain all 3 Supercapital Cores", 	5000, 1000, 0, "exploration/obtain_all_cores", "", true),  // s1ice
+	OBTAIN_BATTLECRUISER_REACTOR_CORE(null, null, 0, 0, 0, "exploration/obtain_all_cores", "obtain_battlecruiser_core", false), // s1ice
+	OBTAIN_CRUISER_REACTOR_CORE(	  null, null, 0, 0, 0, "exploration/obtain_all_cores", "obtain_cruiser_core", 		false), // s1ice
+	OBTAIN_BARGE_REACTOR_CORE(		  null, null, 0, 0, 0, "exploration/obtain_all_cores", "obtain_barge_core", 		false), // s1ice
 
 	OBTAIN_ALL_POWER_ARMOR("Honey, Where's My Super-suit?", "Obtain all 4 pieces of Power Armor", 500, 250, 0, "technology/obtain_all_power_armor", "",  true),  // s1ice
 	OBTAIN_POWER_ARMOR_HELMET(		null, null, 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_helmet", 	false), // s1ice

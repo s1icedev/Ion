@@ -20,7 +20,6 @@ object FleetCommand : SLCommand() {
             sender.userError("You are already in a fleet")
             return
         }
-		Achievement.CREATE_FLEET.rewardAdvancement(sender)
         Fleets.create(sender)
         sender.success("Created fleet")
     }
@@ -199,6 +198,7 @@ object FleetCommand : SLCommand() {
                 fleet.add(sender)
                 fleet.removeInvite(sender)
                 sender.success("Joined ${inviter.name}'s fleet")
+				Achievement.JOIN_FLEET.rewardAdvancement(sender)
                 return
             }
         }

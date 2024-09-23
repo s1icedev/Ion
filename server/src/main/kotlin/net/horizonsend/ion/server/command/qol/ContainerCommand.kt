@@ -39,7 +39,7 @@ object ContainerCommand : SLCommand() {
 		}
 		val item = if(str != null) GlobalCompletions.stringToItem(str) else null
 		Tasks.async {
-			if(item == null){
+			if(item == null) {
 				for(block in containerList) {
 					if (!block.inventory.isEmpty) {
 						count++

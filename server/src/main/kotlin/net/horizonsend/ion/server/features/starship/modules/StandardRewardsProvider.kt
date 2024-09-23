@@ -8,6 +8,7 @@ import net.horizonsend.ion.server.features.starship.active.ActiveStarship
 import net.horizonsend.ion.server.features.starship.control.controllers.player.PlayerController
 import net.horizonsend.ion.server.features.starship.damager.Damager
 import net.horizonsend.ion.server.features.starship.damager.PlayerDamager
+import net.horizonsend.ion.server.features.starship.fleet.Fleets
 import net.horizonsend.ion.server.miscellaneous.utils.get
 import org.bukkit.entity.Player
 import org.slf4j.Logger
@@ -53,7 +54,15 @@ open class StandardRewardsProvider(protected val starship: ActiveStarship) : Rew
 
 			processDamagerRewards(damager, points, timeStamp, sum)
 
-			if (points.get() > 0 && player.uniqueId != killedPlayer?.uniqueId) Achievement.SINK_SHIP.rewardAdvancement(player)
+			if (points.get() > 0 && player.uniqueId != killedPlayer?.uniqueId) {
+				Achievement.SINK_SHIP.rewardAdvancement(player)
+				val fleet = Fleets.findByMember(player) ?: return
+				Achievement.SINK_IN_FLEET.rewardAdvancement(player)
+
+				if(fleet.lastBroadcast == killedPlayer?.name) {
+					Achievement.SINK_BROADCASTED_SHIP.rewardAdvancement(player)
+				}
+			}
 		}
 	}
 

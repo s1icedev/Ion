@@ -11,10 +11,13 @@ import net.horizonsend.ion.common.utils.text.lineBreakWithCenterText
 import net.horizonsend.ion.common.utils.text.ofChildren
 import net.horizonsend.ion.common.utils.text.template
 import net.horizonsend.ion.server.command.starship.MiscStarshipCommands
+import net.horizonsend.ion.server.features.achievements.Achievement
 import net.horizonsend.ion.server.features.sidebar.Sidebar
 import net.horizonsend.ion.server.features.sidebar.SidebarIcon.FLEET_COMMANDER_ICON
 import net.horizonsend.ion.server.features.sidebar.SidebarIcon.FLEET_ICON
 import net.horizonsend.ion.server.features.starship.PilotedStarships
+import net.horizonsend.ion.server.features.starship.StarshipType
+import net.horizonsend.ion.server.miscellaneous.utils.actualType
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.audience.ForwardingAudience
 import net.kyori.adventure.text.Component.space
@@ -82,6 +85,11 @@ class Fleet(var leaderId: UUID) : ForwardingAudience {
         val player = Bukkit.getPlayer(newLeaderId) ?: return false
 
         leaderId = newLeaderId
+
+		if(PilotedStarships[player]?.data?.starshipType?.actualType == StarshipType.BATTLECRUISER) {
+			Achievement.LEAD_FLEET_BATTLECRUISER.rewardAdvancement(player)
+		}
+
         for (memberId in memberIds) {
             val member = Bukkit.getPlayer(memberId) ?: continue
             member.information("${player.name} is now the new Fleet Commander of your fleet")

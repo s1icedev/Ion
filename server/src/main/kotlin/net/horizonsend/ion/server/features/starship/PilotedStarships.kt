@@ -35,6 +35,7 @@ import net.horizonsend.ion.server.features.starship.event.StarshipPilotEvent
 import net.horizonsend.ion.server.features.starship.event.StarshipPilotedEvent
 import net.horizonsend.ion.server.features.starship.event.StarshipUnpilotEvent
 import net.horizonsend.ion.server.features.starship.event.StarshipUnpilotedEvent
+import net.horizonsend.ion.server.features.starship.fleet.Fleets
 import net.horizonsend.ion.server.features.starship.hyperspace.Hyperspace
 import net.horizonsend.ion.server.features.starship.modules.StandardRewardsProvider
 import net.horizonsend.ion.server.features.starship.subsystem.misc.LandingGearSubsystem
@@ -464,6 +465,10 @@ object PilotedStarships : IonServerComponent() {
 			playSoundInRadius(player.location, 10_000.0, pilotSound)
 
 			Achievement.PILOT_SHIP.rewardAdvancement(player)
+
+			if(Fleets.findByMember(player)?.leaderId == player.uniqueId && data.starshipType.actualType == StarshipType.BATTLECRUISER) {
+				Achievement.LEAD_FLEET_BATTLECRUISER.rewardAdvancement(player)
+			}
 
 			val shipType = (data.starshipType.actualType.name).replace("AI_", "")
 			val achievement = runCatching { Achievement.valueOf("PILOT_${shipType.uppercase()}") }.getOrNull()
