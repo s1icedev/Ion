@@ -2,8 +2,7 @@ package net.horizonsend.ion.server.features.achievements
 
 import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent
 import net.horizonsend.ion.server.IonServerComponent
-import net.horizonsend.ion.server.features.custom.items.CustomItems.customItem
-import net.horizonsend.ion.server.miscellaneous.registrations.legacy.CustomItems
+import net.horizonsend.ion.server.features.custom.items.CustomItemRegistry.customItem
 import net.horizonsend.ion.server.miscellaneous.utils.Tasks
 import net.horizonsend.ion.server.miscellaneous.utils.vaultEconomy
 import net.horizonsend.ion.server.features.world.IonWorld.Companion.ion
@@ -80,10 +79,9 @@ object AchievementListeners : IonServerComponent() {
 
 		if (item.type == Material.AIR) return // dropped item
 
-		val legacyCustomItem = CustomItems[item] // legacy custom items (like power armor)
-		val newCustomItem = item.customItem		 // normal custom items
+		val newCustomItem = item.customItem	// normal custom items
 
-		val customItemName: String? = legacyCustomItem?.id ?: newCustomItem?.identifier
+		val customItemName: String? = newCustomItem?.identifier
 
 		if(customItemName != null) {
 			rewardObtainedItemAdvancement(player, customItemName)

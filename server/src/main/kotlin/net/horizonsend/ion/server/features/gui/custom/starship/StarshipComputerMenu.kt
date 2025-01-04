@@ -13,11 +13,10 @@ import net.horizonsend.ion.common.utils.text.miniMessage
 import net.horizonsend.ion.common.utils.text.ofChildren
 import net.horizonsend.ion.common.utils.text.template
 import net.horizonsend.ion.common.utils.text.wrap
+import net.horizonsend.ion.server.features.achievements.Achievement
 import net.horizonsend.ion.server.features.gui.GuiItems.createButton
 import net.horizonsend.ion.server.features.gui.custom.starship.pilots.ManagePilotsMenu
 import net.horizonsend.ion.server.features.gui.custom.starship.type.ChangeTypeButton
-import net.horizonsend.ion.server.features.progression.achievements.Achievement
-import net.horizonsend.ion.server.features.progression.achievements.rewardAchievement
 import net.horizonsend.ion.server.features.starship.DeactivatedPlayerStarships
 import net.horizonsend.ion.server.features.starship.StarshipComputers
 import net.horizonsend.ion.server.features.starship.StarshipComputers.canTakeOwnership
@@ -207,7 +206,7 @@ class StarshipComputerMenu(val player: Player, val data: PlayerStarshipData) {
 				}
 
 				StarshipDetectedEvent(player, player.world).callEvent()
-				player.rewardAchievement(Achievement.DETECT_SHIP)
+				Achievement.DETECT_SHIP.rewardAdvancement(player)
 
 				DeactivatedPlayerStarships.updateState(data, state)
 

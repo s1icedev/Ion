@@ -70,7 +70,7 @@ object ShipKillXP : IonServerComponent() {
 		)
 		val pilot = starship.controller.damager as? PlayerDamager
 		if(pilot != null) Achievement.GET_SUNK.rewardAdvancement(pilot.player)
-		if (ConfigurationFiles.featureFlags.economy) starship.rewardsProviders.forEach { it.triggerReward() }
+		if (ConfigurationFiles.featureFlags().economy) starship.rewardsProviders.forEach { it.triggerReward() }
 		starship.sinkMessageFactory.execute()
 	}
 }

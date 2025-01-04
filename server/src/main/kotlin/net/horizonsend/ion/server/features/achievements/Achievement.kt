@@ -1,8 +1,8 @@
 package net.horizonsend.ion.server.features.achievements
 
 import net.horizonsend.ion.common.database.schema.misc.SLPlayer
-import net.horizonsend.ion.server.LegacySettings
-import net.horizonsend.ion.server.features.custom.items.CustomItems.CHETHERITE
+import net.horizonsend.ion.server.configuration.ConfigurationFiles
+import net.horizonsend.ion.server.features.custom.items.CustomItemRegistry.CHETHERITE
 import net.horizonsend.ion.server.features.progression.SLXP
 import net.horizonsend.ion.server.miscellaneous.utils.Tasks
 import net.horizonsend.ion.server.miscellaneous.utils.get
@@ -279,7 +279,7 @@ enum class Achievement(
 	/** ---------------------------------------- END OF ADVANCEMENT LIST ---------------------------------------- **/
 
 	fun rewardAdvancement(player: Player) = Tasks.async {
-		if (!LegacySettings.master) return@async
+		if (!ConfigurationFiles.legacySettings().master) return@async
 
 		val playerData = SLPlayer[player]
 		if (playerData.achievements.map { Achievement.valueOf(it) }.find { it == this } != null) return@async
@@ -320,7 +320,7 @@ enum class Achievement(
 	}
 
 	fun revokeAdvancement(player: Player) = Tasks.async {
-		if (!LegacySettings.master) return@async
+		if (!ConfigurationFiles.legacySettings().master) return@async
 
 		val playerData = SLPlayer[player]
 		if (playerData.achievements.map { Achievement.valueOf(it) }.find { it == this } != null) {
