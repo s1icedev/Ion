@@ -1,25 +1,31 @@
 package net.horizonsend.ion.server.features.player
 
 import io.papermc.paper.adventure.PaperAdventure
+import net.horizonsend.ion.common.utils.text.miniMessage
 import net.horizonsend.ion.server.IonServerComponent
-import net.kyori.adventure.text.Component
+import net.horizonsend.ion.server.features.achievements.Achievement
+import net.horizonsend.ion.server.miscellaneous.utils.nms
 import net.minecraft.advancements.Advancement
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.advancements.AdvancementNode
 import net.minecraft.advancements.AdvancementTree
 import net.minecraft.advancements.AdvancementType
+import net.minecraft.advancements.CriteriaTriggers
+import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.TreeNodePosition
-import net.minecraft.advancements.critereon.InventoryChangeTrigger
+import net.minecraft.advancements.critereon.ImpossibleTrigger
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.ServerAdvancementManager
 import net.minecraft.world.level.block.Blocks
+import org.bukkit.Material
+import org.bukkit.inventory.ItemStack
 import java.util.function.Consumer
 
 object NMSAchievements : IonServerComponent() {
 	override fun onEnable() {
-//		boostrapAchievements()
+		boostrapAchievements()
 	}
 
 	private fun boostrapAchievements() {
@@ -29,19 +35,50 @@ object NMSAchievements : IonServerComponent() {
 			advancements[advancementHolder.id] = advancementHolder
 		}
 
-		Advancement.Builder.advancement()
+		val advancementName = Advancement.Builder.advancement()
 			.display(
 				Blocks.SCULK,
-				PaperAdventure.asVanilla(Component.text("HE TEST")),
-				PaperAdventure.asVanilla(Component.text("HE TEST DESCRIPTION")),
+				PaperAdventure.asVanilla("<light_purple>HE TEST".miniMessage()),
+				PaperAdventure.asVanilla("<aqua>HE TEST DESCRIPTION".miniMessage()),
 				ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"),
+				AdvancementType.CHALLENGE,
+				false,
+				false,
+				false
+			)
+			.addCriterion("testingCriteria", Criterion(CriteriaTriggers.IMPOSSIBLE, ImpossibleTrigger.TriggerInstance()))
+			.save(consumer, "test/root")
+
+		val multicriteriatest = Advancement.Builder.advancement()
+			.display(
+				Blocks.LADDER,
+				PaperAdventure.asVanilla("<aqua>MULTIPLE".miniMessage()),
+				PaperAdventure.asVanilla("<green>CRITERIA??".miniMessage()),
+				null,
+				AdvancementType.CHALLENGE,
+				false,
+				false,
+				false
+			)
+			.addCriterion("whar1", Criterion(CriteriaTriggers.IMPOSSIBLE, ImpossibleTrigger.TriggerInstance()))
+			.addCriterion("whar2", Criterion(CriteriaTriggers.IMPOSSIBLE, ImpossibleTrigger.TriggerInstance()))
+			.addCriterion("whar3", Criterion(CriteriaTriggers.IMPOSSIBLE, ImpossibleTrigger.TriggerInstance()))
+			.parent(advancementName)
+			.save(consumer, "test/multiple")
+
+		val exploration_root = Advancement.Builder.advancement()
+			.display(
+				ItemStack(Material.CLOCK).nms,
+				PaperAdventure.asVanilla("<aqua>Exploration".miniMessage()),
+				PaperAdventure.asVanilla("<blue>The Start of Your Intergalactic Journey".miniMessage()),
+				ResourceLocation.withDefaultNamespace("textures/block/sculk_catalyst_top.png"),
 				AdvancementType.TASK,
 				false,
 				false,
 				false
 			)
-			.addCriterion("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Blocks.CRAFTING_TABLE))
-			.save(consumer, "test/root")
+			.addCriterion(Achievement.EXPLORATION_ROOT.criteria, Criterion(CriteriaTriggers.IMPOSSIBLE, ImpossibleTrigger.TriggerInstance()))
+			.save(consumer, Achievement.EXPLORATION_ROOT.key)
 
 		apply(advancements)
 	}

@@ -14,8 +14,8 @@ import org.litote.kmongo.addToSet
 import org.litote.kmongo.pull
 
 enum class Achievement(
-	val title: String?, //nullable for multi-condition advancements
-	val description: String?, //nullable for multi-condition advancements
+	val title: String,
+	val description: String,
 	val creditReward: Int,
 	val experienceReward: Int,
 	val chetheriteReward: Int,
@@ -70,9 +70,9 @@ enum class Achievement(
 	 */
 
 //	Template:
-//	TEMPLATE("title", "description", 0, 0, 0, "key", "criteria", false), // s1ice
+//	TEMPLATE("title", "description", 0, 0, 0, "key", "criteria", isMultiCriterion?), // s1ice
 	/** -------------------- Exploration -------------------- **/
-	EXPLORATION_ROOT(null, null, 0, 0, 0, "exploration/root", "root", false), // s1ice
+	EXPLORATION_ROOT("", "", 0, 0, 0, "exploration/root", "root", false), // s1ice
 //	COMPLETE_TUTORIAL("Space Cadet", "Complete the Tutorial", 1000, 250, 0, "exploration/complete_tutorial", "complete_tutorial", false), // Wither
 	BUY_SHIP("Fresh Off the Lot", "Buy a ship from the ship dealer", 250, 100, 0, "exploration/buy_ship", "buy_ship", false), // Sciath + Astral
 	DETECT_SHIP("All in Working Order", "Detect a starship", 100, 50, 0, "exploration/detect_ship", "detect_ship", false), // Vandrayk
@@ -118,7 +118,7 @@ enum class Achievement(
 	SINK_1K_AI_SHIPS("Terminator", "Kill 1000 AI ships", 10000, 5000, 0, "exploration/kill_1k_ai_ships", "kill_1k_ai_ships", false), // s1ice
 
 	/** ---------------------------------------- EXPLORATION ---------------------------------------- **/
-	LEVELING_ROOT(null, null, 0, 0, 0, "leveling/root", "root", false), // s1ice
+	LEVELING_ROOT("", "", 0, 0, 0, "leveling/root", "root", false), // s1ice
 	LEVEL_10("What do we do now?", "Reach level 10", 1000, 250, 0, "leveling/level_10", "level_10", false), // Vandrayk
 	LEVEL_20("Where it begins", "Reach level 20", 2000, 350, 0, "leveling/level_20", "level_20", false), // Kwazedilla + Astral
 	LEVEL_40("Sorry for the pain", "Reach level 40", 4000, 500, 0, "leveling/level_40", "level_40", false), // Sciath
@@ -133,58 +133,58 @@ enum class Achievement(
 	BAL_10M("Monopoly", "Have a 10 mil balance", 0, 7500, 0, "leveling/balance_10mil", "balance_10mil", false), // s1ice
 
 	/** ---------------------------------------- MATERIALS ---------------------------------------- **/
-	MATERIALS_ROOT(null, null, 0, 0, 0, "materials/root", "root", false), // s1ice
+	MATERIALS_ROOT("", "", 0, 0, 0, "materials/root", "root", false), // s1ice
 	OBTAIN_CHETHERITE("Unleaded", "Obtain Chetherite", 0, 0, 0, "materials/obtain_chetherite","obtain_chetherite", false), // Gutin
 	OBTAIN_URANIUM("Split the atom", "Obtain Uranium", 0, 0, 0, "materials/obtain_titanium","obtain_aluminum", false), // Astral
 	OBTAIN_ALUMINUM_INGOT("Pronounced Aluminum", "Obtain Aluminum", 0, 0, 0, "materials/obtain_aluminum","obtain_aluminum", false), // Gutin
 	OBTAIN_TITANIUM_INGOT("Future's Material", "Obtain Titanium", 0, 0, 0, "materials/obtain_titanium","obtain_titanium", false), // Gutin + Astral
 
 	//circuitry line
-	OBTAIN_CIRCUITRY(			null, null, 0, 0, 0, "materials/c_obtain_circuitry",			"c_obtain_circuitry",			false), // s1ice
-	OBTAIN_CIRCUIT_BOARD(		null, null, 0, 0, 0, "materials/c_obtain_circuit_board",		"c_obtain_circuit_board",		false), // s1ice
-	OBTAIN_MOTHERBOARD(			null, null, 0, 0, 0, "materials/c_obtain_motherboard",			"c_obtain_motherboard",			false), // s1ice
-	OBTAIN_SUPERCONDUCTOR(		null, null, 0, 0, 0, "materials/c_obtain_superconductor",		"c_obtain_superconductor",		false), // s1ice
-	OBTAIN_SUPERCONDUCTOR_BLOCK(null, null, 0, 0, 0, "materials/c_obtain_superconductor_block",	"c_obtain_superconductor_block",false), // s1ice
-	OBTAIN_SUPERCONDUCTOR_CORE(	null, null, 0, 0, 0, "materials/c_obtain_superconductor_core",	"c_obtain_superconductor_core",	false), // s1ice
+	OBTAIN_CIRCUITRY(			"", "", 0, 0, 0, "materials/c_obtain_circuitry",			"c_obtain_circuitry",			false), // s1ice
+	OBTAIN_CIRCUIT_BOARD(		"", "", 0, 0, 0, "materials/c_obtain_circuit_board",		"c_obtain_circuit_board",		false), // s1ice
+	OBTAIN_MOTHERBOARD(			"", "", 0, 0, 0, "materials/c_obtain_motherboard",			"c_obtain_motherboard",			false), // s1ice
+	OBTAIN_SUPERCONDUCTOR(		"", "", 0, 0, 0, "materials/c_obtain_superconductor",		"c_obtain_superconductor",		false), // s1ice
+	OBTAIN_SUPERCONDUCTOR_BLOCK("", "", 0, 0, 0, "materials/c_obtain_superconductor_block",	"c_obtain_superconductor_block",false), // s1ice
+	OBTAIN_SUPERCONDUCTOR_CORE(	"", "", 0, 0, 0, "materials/c_obtain_superconductor_core",	"c_obtain_superconductor_core",	false), // s1ice
 
 	//reactive line
-	OBTAIN_REACTIVE_HOUSING(   null, null, 0, 0, 0, "materials/r_obtain_reactive_housing",	 "r_obtain_reactive_housing", 	false), // s1ice
-	OBTAIN_REACTIVE_COMPONENT( null, null, 0, 0, 0, "materials/r_obtain_reactive_component", "r_obtain_reactive_component", false), // s1ice
-	OBTAIN_REACTIVE_PLATING(   null, null, 0, 0, 0, "materials/r_obtain_reactive_plating",	 "r_obtain_reactive_plating", 	false), // s1ice
-	OBTAIN_REACTIVE_CHASSIS(   null, null, 0, 0, 0, "materials/r_obtain_reactive_chassis",	 "r_obtain_reactive_chassis", 	false), // s1ice
-	OBTAIN_REACTIVE_MEMBRANE(  null, null, 0, 0, 0, "materials/r_obtain_reactive_membrane",	 "r_obtain_reactive_membrane", 	false), // s1ice
-	OBTAIN_REACTIVE_ASSEMBLY(  null, null, 0, 0, 0, "materials/r_obtain_reactive_assembly",	 "r_obtain_reactive_assembly",	false), // s1ice
-	OBTAIN_FABRICATED_ASSEMBLY(null, null, 0, 0, 0, "materials/r_obtain_fabricated_assembly","r_obtain_fabricated_assembly",false), // s1ice
-	OBTAIN_REACTOR_CONTROL(    null, null, 0, 0, 0, "materials/r_obtain_reactor_control",	 "r_obtain_reactor_control", 	false), // s1ice
+	OBTAIN_REACTIVE_HOUSING(   "", "", 0, 0, 0, "materials/r_obtain_reactive_housing",	 "r_obtain_reactive_housing", 	false), // s1ice
+	OBTAIN_REACTIVE_COMPONENT( "", "", 0, 0, 0, "materials/r_obtain_reactive_component", "r_obtain_reactive_component", false), // s1ice
+	OBTAIN_REACTIVE_PLATING(   "", "", 0, 0, 0, "materials/r_obtain_reactive_plating",	 "r_obtain_reactive_plating", 	false), // s1ice
+	OBTAIN_REACTIVE_CHASSIS(   "", "", 0, 0, 0, "materials/r_obtain_reactive_chassis",	 "r_obtain_reactive_chassis", 	false), // s1ice
+	OBTAIN_REACTIVE_MEMBRANE(  "", "", 0, 0, 0, "materials/r_obtain_reactive_membrane",	 "r_obtain_reactive_membrane", 	false), // s1ice
+	OBTAIN_REACTIVE_ASSEMBLY(  "", "", 0, 0, 0, "materials/r_obtain_reactive_assembly",	 "r_obtain_reactive_assembly",	false), // s1ice
+	OBTAIN_FABRICATED_ASSEMBLY("", "", 0, 0, 0, "materials/r_obtain_fabricated_assembly","r_obtain_fabricated_assembly",false), // s1ice
+	OBTAIN_REACTOR_CONTROL(    "", "", 0, 0, 0, "materials/r_obtain_reactor_control",	 "r_obtain_reactor_control", 	false), // s1ice
 
 	//steel line
-	OBTAIN_STEEL_INGOT(		null, null, 0, 0, 0, "materials/s_obtain_steel",			"s_obtain_steel", 				false), // s1ice
-	OBTAIN_STEEL_BLOCK(		null, null, 0, 0, 0, "materials/s_obtain_steel_block",		"s_obtain_steel_block", 		false), // s1ice
-	OBTAIN_STEEL_PLATE(		null, null, 0, 0, 0, "materials/s_obtain_steel_plate",		"s_obtain_steel_plate", 		false), // s1ice
-	OBTAIN_STEEL_CHASSIS(	null, null, 0, 0, 0, "materials/s_obtain_steel_chassis",	"s_obtain_steel_chassis", 		false), // s1ice
-	OBTAIN_STEEL_MODULE(	null, null, 0, 0, 0, "materials/s_obtain_steel_module",		"s_obtain_steel_module", 		false), // s1ice
-	OBTAIN_STEEL_ASSEMBLY(	null, null, 0, 0, 0, "materials/s_obtain_steel_assembly",	"s_obtain_steel_assembly", 		false), // s1ice
-	OBTAIN_REINFORCED_FRAME(null, null, 0, 0, 0, "materials/s_obtain_reinforced_frame", "s_obtain_reinforced_frame", 	false), // s1ice
-	OBTAIN_REACTOR_FRAME(	null, null, 0, 0, 0, "materials/s_obtain_reactor_frame",	"s_obtain_reactor_frame", 		false), // s1ice
+	OBTAIN_STEEL_INGOT(		"", "", 0, 0, 0, "materials/s_obtain_steel",			"s_obtain_steel", 				false), // s1ice
+	OBTAIN_STEEL_BLOCK(		"", "", 0, 0, 0, "materials/s_obtain_steel_block",		"s_obtain_steel_block", 		false), // s1ice
+	OBTAIN_STEEL_PLATE(		"", "", 0, 0, 0, "materials/s_obtain_steel_plate",		"s_obtain_steel_plate", 		false), // s1ice
+	OBTAIN_STEEL_CHASSIS(	"", "", 0, 0, 0, "materials/s_obtain_steel_chassis",	"s_obtain_steel_chassis", 		false), // s1ice
+	OBTAIN_STEEL_MODULE(	"", "", 0, 0, 0, "materials/s_obtain_steel_module",		"s_obtain_steel_module", 		false), // s1ice
+	OBTAIN_STEEL_ASSEMBLY(	"", "", 0, 0, 0, "materials/s_obtain_steel_assembly",	"s_obtain_steel_assembly", 		false), // s1ice
+	OBTAIN_REINFORCED_FRAME("", "", 0, 0, 0, "materials/s_obtain_reinforced_frame", "s_obtain_reinforced_frame", 	false), // s1ice
+	OBTAIN_REACTOR_FRAME(	"", "", 0, 0, 0, "materials/s_obtain_reactor_frame",	"s_obtain_reactor_frame", 		false), // s1ice
 
 	//uranium line
-	OBTAIN_ENRICHED_URANIUM(	  null, null, 0, 0, 0, "materials/u_obtain_enriched_uranium",		"u_obtain_enriched_uranium", 		false), // s1ice
-	OBTAIN_ENRICHED_URANIUM_BLOCK(null, null, 0, 0, 0, "materials/u_obtain_enriched_uranium_block", "u_obtain_enriched_uranium_block",	false), // s1ice
-	OBTAIN_URANIUM_CORE(		  null, null, 0, 0, 0, "materials/u_obtain_uranium_core",			"u_obtain_uranium_core", 			false), // s1ice
-	OBTAIN_URANIUM_ROD(			  null, null, 0, 0, 0, "materials/u_obtain_uranium_ro",				"u_obtain_uranium_rod", 			false), // s1ice
-	OBTAIN_FUEL_ROD_CORE(		  null, null, 0, 0, 0, "materials/u_obtain_fuel_rod_core",			"u_obtain_fuel_rod_core", 			false), // s1ice
-	OBTAIN_FUEL_CELL(			  null, null, 0, 0, 0, "materials/u_obtain_fuel_cell",				"u_obtain_fuel_cell", 				false), // s1ice
-	OBTAIN_FUEL_CONTROL(		  null, null, 0, 0, 0, "materials/u_obtain_fuel_control",			"u_obtain_fuel_control", 			false), // s1ice
+	OBTAIN_ENRICHED_URANIUM(	  "", "", 0, 0, 0, "materials/u_obtain_enriched_uranium",		"u_obtain_enriched_uranium", 		false), // s1ice
+	OBTAIN_ENRICHED_URANIUM_BLOCK("", "", 0, 0, 0, "materials/u_obtain_enriched_uranium_block", "u_obtain_enriched_uranium_block",	false), // s1ice
+	OBTAIN_URANIUM_CORE(		  "", "", 0, 0, 0, "materials/u_obtain_uranium_core",			"u_obtain_uranium_core", 			false), // s1ice
+	OBTAIN_URANIUM_ROD(			  "", "", 0, 0, 0, "materials/u_obtain_uranium_ro",				"u_obtain_uranium_rod", 			false), // s1ice
+	OBTAIN_FUEL_ROD_CORE(		  "", "", 0, 0, 0, "materials/u_obtain_fuel_rod_core",			"u_obtain_fuel_rod_core", 			false), // s1ice
+	OBTAIN_FUEL_CELL(			  "", "", 0, 0, 0, "materials/u_obtain_fuel_cell",				"u_obtain_fuel_cell", 				false), // s1ice
+	OBTAIN_FUEL_CONTROL(		  "", "", 0, 0, 0, "materials/u_obtain_fuel_control",			"u_obtain_fuel_control", 			false), // s1ice
 
 	/** ---------------------------------------- TECHNOLOGY ---------------------------------------- **/
-	TECHNOLOGY_ROOT(null, null, 0, 0, 0, "technology/root", "root", false), // s1ice
+	TECHNOLOGY_ROOT("", "", 0, 0, 0, "technology/root", "root", false), // s1ice
 	DETECT_MULTIBLOCK("Industrial Revolution", "Detect a multiblock", 500, 125, 0, "technology/detect_multiblock", "detect_multiblock", false), // Wither + Astral
 	USE_ROCKET_BOOTS("Rocket Man", "Take flight with rocket boots", 100, 100, 0, "technology/use_rocket_boots", "use_rocket_boots", false), // s1ice
 	OBTAIN_SPONGE("Wiring Time!", "Obtain a Sponge", 0, 0, 0, "technology/obtain_sponge","obtain_sponge", false), // s1ice
 	OBTAIN_END_ROD("Straight Pathing", "Obtain an End Rod", 0, 0, 0, "technology/obtain_end_rod","obtain_end_rod", false), // s1ice
 
 	/** ---------------------------------------- NATIONS ---------------------------------------- **/
-	NATIONS_ROOT(null, null, 0, 0, 0, "nations/root", "root", false), // s1ice
+	NATIONS_ROOT("", "", 0, 0, 0, "nations/root", "root", false), // s1ice
 	JOIN_SETTLEMENT("Forming Bonds", "Join a settlement", 100, 100, 0, "nations/join_settlement", "join_settlement", false), // s1ice
 	JOIN_NATION("Strength in Numbers", "Join a Nation", 250, 100, 0, "nations/join_nation", "join_nation", false), // s1ice
 	SETTLEMENT_MOTD("Community Notice Board", "Set your settlement MOTD", 100, 100, 0, "nations/settlement_motd", "settlement_motd", false), // s1ice
@@ -201,7 +201,7 @@ enum class Achievement(
 	CREATE_SETTLEMENT("Breaking ground", "Found a settlement", 1000, 250, 0, "nations/create_settlement", "create_settlement", false), // Astral
 	CREATE_NATION("Galactic Power", "Found a nation", 5000, 500, 0, "nations/create_nation", "create_nation", false), // Vandrayk
 	CREATE_OUTPOST("Manifest Destiny", "Create a nation claim", 2500, 250, 0, "nations/create_settlement", "create_settlement", false), // Vandrayk
-	CREATE_STATION(null, null, 0, 0, 0, "nations/create_station", "create_station", false), // s1ice
+	CREATE_STATION("", "", 0, 0, 0, "nations/create_station", "create_station", false), // s1ice
 	CREATE_PERSONAL_STATION("Home Away From Home", "Create a Personal Space Station", 500, 250, 0, "nations/create_personal_station", "create_personal_station", false), // s1ice
 	CREATE_SETTLEMENT_STATION("Zero-G Community", "Create a Settlement Space Station", 500, 250, 0, "nations/create_settlement_station", "create_settlement_station", false), // s1ice
 	CREATE_NATION_STATION("Asteroids for All!", "Create a Nation Space Station", 500, 250, 0, "nations/create_nation_station", "create_nation_station", false), // s1ice
@@ -229,52 +229,52 @@ enum class Achievement(
 	/** ---------------------------------------- MULTI-CRITERION ADVANCEMENTS ---------------------------------------- **/
 
 	OBTAIN_ALL_CORES("Warship Cores!?", "Obtain all 3 Supercapital Cores", 	5000, 1000, 0, "exploration/obtain_all_cores", "", true),  // s1ice
-	OBTAIN_BATTLECRUISER_REACTOR_CORE(null, null, 0, 0, 0, "exploration/obtain_all_cores", "obtain_battlecruiser_core", false), // s1ice
-	OBTAIN_CRUISER_REACTOR_CORE(	  null, null, 0, 0, 0, "exploration/obtain_all_cores", "obtain_cruiser_core", 		false), // s1ice
-	OBTAIN_BARGE_REACTOR_CORE(		  null, null, 0, 0, 0, "exploration/obtain_all_cores", "obtain_barge_core", 		false), // s1ice
+	OBTAIN_BATTLECRUISER_REACTOR_CORE("", "", 0, 0, 0, "exploration/obtain_all_cores", "obtain_battlecruiser_core", false), // s1ice
+	OBTAIN_CRUISER_REACTOR_CORE(	  "", "", 0, 0, 0, "exploration/obtain_all_cores", "obtain_cruiser_core", 		false), // s1ice
+	OBTAIN_BARGE_REACTOR_CORE(		  "", "", 0, 0, 0, "exploration/obtain_all_cores", "obtain_barge_core", 		false), // s1ice
 
 	OBTAIN_ALL_POWER_ARMOR("Honey, Where's My Super-suit?", "Obtain all 4 pieces of Power Armor", 500, 250, 0, "technology/obtain_all_power_armor", "",  true),  // s1ice
-	OBTAIN_POWER_ARMOR_HELMET(		null, null, 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_helmet", 	false), // s1ice
-	OBTAIN_POWER_ARMOR_CHESTPLATE(	null, null, 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_chestplate",false), // s1ice
-	OBTAIN_POWER_ARMOR_LEGGINGS(	null, null, 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_leggings", 	false), // s1ice
-	OBTAIN_POWER_ARMOR_BOOTS(		null, null, 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_boots", 	false), // s1ice
+	OBTAIN_POWER_ARMOR_HELMET(		"", "", 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_helmet", 	false), // s1ice
+	OBTAIN_POWER_ARMOR_CHESTPLATE(	"", "", 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_chestplate",false), // s1ice
+	OBTAIN_POWER_ARMOR_LEGGINGS(	"", "", 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_leggings", 	false), // s1ice
+	OBTAIN_POWER_ARMOR_BOOTS(		"", "", 0, 0, 0, "technology/obtain_all_power_armor", "obtain_power_boots", 	false), // s1ice
 
 	SINK_EACH_AI_SHIP("Man Vs. Machine", "Sink an AI ship from each faction", 5000, 2500, 0, "exploration/sink_each_ai_ship", "", true),  // s1ice
-	SINK_吃饭人(					null, null, 0, 0, 0, "exploration/sink_each_ai_ship", "sink_吃饭人", 				false), // s1ice
-	SINK_WATCHERS(				null, null, 0, 0, 0, "exploration/sink_each_ai_ship", "sink_watchers", 				false), // s1ice
-	SINK_MINING_GUILD(			null, null, 0, 0, 0, "exploration/sink_each_ai_ship", "sink_mining_guild", 			false), // s1ice
-	SINK_PERSEUS_EXPLORERS(		null, null, 0, 0, 0, "exploration/sink_each_ai_ship", "sink_perseus_explorers", 	false), // s1ice
-	SINK_SYSTEM_DEFENSE_FORCES( null, null, 0, 0, 0, "exploration/sink_each_ai_ship", "sink_system_defense_forces", false), // s1ice
-	SINK_TSAII_RAIDERS(			null, null, 0, 0, 0, "exploration/sink_each_ai_ship", "sink_tsaii_raiders", 		false), // s1ice
-	SINK_PIRATES(				null, null, 0, 0, 0, "exploration/sink_each_ai_ship", "sink_pirates", 				false), // s1ice
+	SINK_吃饭人(					"", "", 0, 0, 0, "exploration/sink_each_ai_ship", "sink_吃饭人", 				false), // s1ice
+	SINK_WATCHERS(				"", "", 0, 0, 0, "exploration/sink_each_ai_ship", "sink_watchers", 				false), // s1ice
+	SINK_MINING_GUILD(			"", "", 0, 0, 0, "exploration/sink_each_ai_ship", "sink_mining_guild", 			false), // s1ice
+	SINK_PERSEUS_EXPLORERS(		"", "", 0, 0, 0, "exploration/sink_each_ai_ship", "sink_perseus_explorers", 	false), // s1ice
+	SINK_SYSTEM_DEFENSE_FORCES( "", "", 0, 0, 0, "exploration/sink_each_ai_ship", "sink_system_defense_forces", false), // s1ice
+	SINK_TSAII_RAIDERS(			"", "", 0, 0, 0, "exploration/sink_each_ai_ship", "sink_tsaii_raiders", 		false), // s1ice
+	SINK_PIRATES(				"", "", 0, 0, 0, "exploration/sink_each_ai_ship", "sink_pirates", 				false), // s1ice
 
 	VISIT_ALL_PLANETS("Mr. Worldwide", "Visit Every Planet", 7500, 2500, 0, "exploration/visit_all_planets", "", true),  // s1ice
-	VISIT_AERACH(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_aerach", 	false), // s1ice
-	VISIT_ARET(		null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_aret", 	false), // s1ice
-	VISIT_CHANDRA(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_chandra", 	false), // s1ice
-	VISIT_CHIMGARA(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_chimgara", false), // s1ice
-	VISIT_DAMKOTH(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_damkoth", 	false), // s1ice
-	VISIT_GAHARA(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_gahara", 	false), // s1ice
-	VISIT_HERDOLI(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_herdoli", 	false), // s1ice
-	VISIT_ILIUS(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_ilius", 	false), // s1ice
-	VISIT_ISIK(		null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_isik", 	false), // s1ice
-	VISIT_KOVFEFE(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_kovfefe", 	false), // s1ice
-	VISIT_KRIO(		null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_krio", 	false), // s1ice
-	VISIT_LIODA(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_lioda", 	false), // s1ice
-	VISIT_LUXITERNA(null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_luxiterna",false), // s1ice
-	VISIT_QATRA(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_qatra", 	false), // s1ice
-	VISIT_RUBACIEA(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_rubaciea", false), // s1ice
-	VISIT_TURMS(	null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_turms", 	false), // s1ice
-	VISIT_VASK(		null, null, 100, 125, 0, "exploration/visit_all_planets", "visit_vask", 	false), // s1ice
+	VISIT_AERACH(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_aerach", 	false), // s1ice
+	VISIT_ARET(		"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_aret", 	false), // s1ice
+	VISIT_CHANDRA(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_chandra", 	false), // s1ice
+	VISIT_CHIMGARA(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_chimgara", false), // s1ice
+	VISIT_DAMKOTH(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_damkoth", 	false), // s1ice
+	VISIT_GAHARA(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_gahara", 	false), // s1ice
+	VISIT_HERDOLI(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_herdoli", 	false), // s1ice
+	VISIT_ILIUS(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_ilius", 	false), // s1ice
+	VISIT_ISIK(		"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_isik", 	false), // s1ice
+	VISIT_KOVFEFE(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_kovfefe", 	false), // s1ice
+	VISIT_KRIO(		"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_krio", 	false), // s1ice
+	VISIT_LIODA(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_lioda", 	false), // s1ice
+	VISIT_LUXITERNA("", "", 100, 125, 0, "exploration/visit_all_planets", "visit_luxiterna",false), // s1ice
+	VISIT_QATRA(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_qatra", 	false), // s1ice
+	VISIT_RUBACIEA(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_rubaciea", false), // s1ice
+	VISIT_TURMS(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_turms", 	false), // s1ice
+	VISIT_VASK(		"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_vask", 	false), // s1ice
 
 	VISIT_ALL_SYSTEMS("Galactic Explorer", "Visit every system", 2500, 1000, 0, "exploration/visit_all_systems", "", true),  // s1ice
- 	VISIT_ASTERI( null, null, 200, 250, 0, "exploration/visit_all_systems", "visit_asteri",  false), // s1ice
-	VISIT_ILIOS(  null, null, 200, 250, 0, "exploration/visit_all_systems", "visit_ilios",   false), // s1ice
-	VISIT_REGULUS(null, null, 200, 250, 0, "exploration/visit_all_systems", "visit_regulus", false), // s1ice
-	VISIT_SIRIUS( null, null, 200, 250, 0, "exploration/visit_all_systems", "visit_sirius",  false), // s1ice
-	VISIT_HORIZON(null, null, 200, 375, 0, "exploration/visit_all_systems", "visit_horizon", false), // s1ice
-	VISIT_TRENCH( null, null, 200, 500, 0, "exploration/visit_all_systems", "visit_trench",  false), // s1ice
-	VISIT_AU_0821(null, null, 200, 500, 0, "exploration/visit_all_systems", "visit_au_0821", false); // s1ice
+ 	VISIT_ASTERI( "", "", 200, 250, 0, "exploration/visit_all_systems", "visit_asteri",  false), // s1ice
+	VISIT_ILIOS(  "", "", 200, 250, 0, "exploration/visit_all_systems", "visit_ilios",   false), // s1ice
+	VISIT_REGULUS("", "", 200, 250, 0, "exploration/visit_all_systems", "visit_regulus", false), // s1ice
+	VISIT_SIRIUS( "", "", 200, 250, 0, "exploration/visit_all_systems", "visit_sirius",  false), // s1ice
+	VISIT_HORIZON("", "", 200, 375, 0, "exploration/visit_all_systems", "visit_horizon", false), // s1ice
+	VISIT_TRENCH( "", "", 200, 500, 0, "exploration/visit_all_systems", "visit_trench",  false), // s1ice
+	VISIT_AU_0821("", "", 200, 500, 0, "exploration/visit_all_systems", "visit_au_0821", false); // s1ice
 
 	/** ---------------------------------------- END OF ADVANCEMENT LIST ---------------------------------------- **/
 
@@ -285,7 +285,7 @@ enum class Achievement(
 		if (playerData.achievements.map { Achievement.valueOf(it) }.find { it == this } != null) return@async
 
 		if(!resultAdvancement) { // result advancements aren't tied to a criteria
-			val advancement = Bukkit.getAdvancement(NamespacedKey("horizonsend", key))
+			val advancement = Bukkit.getAdvancement(NamespacedKey("minecraft", key))
 
 			if(advancement?.let { player.getAdvancementProgress(it).isDone } == false) {// if advancement's not done
 				Tasks.sync { player.getAdvancementProgress(advancement).awardCriteria(criteria) }
@@ -304,9 +304,9 @@ enum class Achievement(
 		}
 		val message: String =
 			(
-				(if (title != null)
+				(if (title != "")
 					"\n<gold>${title}\n" else "")
-				+ (if(description != null)
+				+ (if(description != "")
 					"<gray>Achievement Granted: ${description}<reset>\n" else "")
 				+ (if (creditReward > 0)
 					"Credits: $creditReward\n" else "")
@@ -328,7 +328,7 @@ enum class Achievement(
 			println("removed [$name] achievement from ${player.name}")
 		}
 		if(!resultAdvancement) { // result advancements aren't tied to a criteria
-			val advancement = Bukkit.getAdvancement(NamespacedKey("horizonsend", key))
+			val advancement = Bukkit.getAdvancement(NamespacedKey("minecraft", key))
 
 			if(advancement?.let { player.getAdvancementProgress(it).isDone } != null) {// if advancement exists / has any form of progress
 				Tasks.sync {

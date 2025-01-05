@@ -36,9 +36,11 @@ import org.bukkit.craftbukkit.CraftChunk
 import org.bukkit.craftbukkit.CraftWorld
 import org.bukkit.craftbukkit.CraftWorldBorder
 import org.bukkit.craftbukkit.entity.CraftPlayer
+import org.bukkit.craftbukkit.inventory.CraftItemStack
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityExplodeEvent
+import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 import java.time.Duration
 import java.util.function.Supplier
@@ -201,3 +203,5 @@ fun getRandomDuration(minimum: Duration, maximum: Duration): Duration {
 }
 
 fun <T, Z> Supplier<T>.map(map: (T) -> Z): Supplier<Z> = Supplier { map(get()) }
+
+val ItemStack.nms: net.minecraft.world.item.ItemStack get() = CraftItemStack.asNMSCopy(this)

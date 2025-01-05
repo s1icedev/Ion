@@ -25,8 +25,8 @@ object AchievementsCommand : SLCommand() {
 	@Subcommand("grant")
 	@CommandCompletion("@achievements @players")
 	@CommandPermission("ion.achievements.grant")
-	fun onAchievementGrant(sender: CommandSender, achievement: Achievement, target: String) {
-		val player = Bukkit.getPlayer(target) ?: return sender.userError("Player $target must be online.")
+	fun onAchievementGrant(sender: CommandSender, achievement: Achievement, target: String?) {
+		val player = Bukkit.getPlayer(target ?: sender.name) ?: return sender.userError("Player $target must be online.")
 
 		achievement.rewardAdvancement(player)
 
@@ -36,8 +36,8 @@ object AchievementsCommand : SLCommand() {
 	@Subcommand("revoke")
 	@CommandCompletion("@achievements @players")
 	@CommandPermission("ion.achievements.revoke")
-	fun onAchievementRevoke(sender: CommandSender, achievement: Achievement, target: String) {
-		val player = Bukkit.getPlayer(target) ?: return sender.userError("Player $target must be online.")
+	fun onAchievementRevoke(sender: CommandSender, achievement: Achievement, target: String?) {
+		val player = Bukkit.getPlayer(target ?: sender.name) ?: return sender.userError("Player $target must be online.")
 
 		achievement.revokeAdvancement(player)
 

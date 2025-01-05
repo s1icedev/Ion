@@ -67,7 +67,6 @@ object JoinLeaveListener : SLEventListener() {
 					description = "Welcome $name to the server!",
 					color = HEColorScheme.HE_LIGHT_ORANGE.value()
 				))
-				if (player != null) initializeRootAdvancements(player)
 
 				IntroTutorial.startTutorial(Bukkit.getPlayer(uuid) ?: return)
 
@@ -80,10 +79,13 @@ object JoinLeaveListener : SLEventListener() {
 			}
 
 			// set both last seen, and username
-			else -> SLPlayer.col.updateOneById(
-				id,
-				combine(setValue(SLPlayer::lastSeen, now), setValue(SLPlayer::lastKnownName, name))
-			)
+			else -> {
+				SLPlayer.col.updateOneById(
+					id,
+					combine(setValue(SLPlayer::lastSeen, now), setValue(SLPlayer::lastKnownName, name))
+				)
+				if (player != null) initializeRootAdvancements(player)
+			}
 		}
 	}
 	private fun initializeRootAdvancements(player: Player) {
