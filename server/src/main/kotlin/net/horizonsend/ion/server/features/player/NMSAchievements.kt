@@ -4,10 +4,12 @@ import io.papermc.paper.adventure.PaperAdventure
 import net.horizonsend.ion.common.utils.text.miniMessage
 import net.horizonsend.ion.server.IonServerComponent
 import net.horizonsend.ion.server.features.achievements.Achievement
+import net.horizonsend.ion.server.features.custom.items.CustomItemRegistry
 import net.horizonsend.ion.server.miscellaneous.utils.nms
 import net.minecraft.advancements.Advancement
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.advancements.AdvancementNode
+import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementTree
 import net.minecraft.advancements.AdvancementType
 import net.minecraft.advancements.CriteriaTriggers
@@ -35,7 +37,9 @@ object NMSAchievements : IonServerComponent() {
 			advancements[advancementHolder.id] = advancementHolder
 		}
 
-		val advancementName = Advancement.Builder.advancement()
+		val impossible = Criterion(CriteriaTriggers.IMPOSSIBLE, ImpossibleTrigger.TriggerInstance())
+
+		val singleCriterionExample = Advancement.Builder.advancement()
 			.display(
 				Blocks.SCULK,
 				PaperAdventure.asVanilla("<light_purple>HE TEST".miniMessage()),
@@ -46,10 +50,10 @@ object NMSAchievements : IonServerComponent() {
 				false,
 				false
 			)
-			.addCriterion("testingCriteria", Criterion(CriteriaTriggers.IMPOSSIBLE, ImpossibleTrigger.TriggerInstance()))
+			.addCriterion("testingCriteria", impossible)
 			.save(consumer, "test/root")
 
-		val multicriteriatest = Advancement.Builder.advancement()
+		val multiCriterionExample = Advancement.Builder.advancement()
 			.display(
 				Blocks.LADDER,
 				PaperAdventure.asVanilla("<aqua>MULTIPLE".miniMessage()),
@@ -60,11 +64,29 @@ object NMSAchievements : IonServerComponent() {
 				false,
 				false
 			)
-			.addCriterion("whar1", Criterion(CriteriaTriggers.IMPOSSIBLE, ImpossibleTrigger.TriggerInstance()))
-			.addCriterion("whar2", Criterion(CriteriaTriggers.IMPOSSIBLE, ImpossibleTrigger.TriggerInstance()))
-			.addCriterion("whar3", Criterion(CriteriaTriggers.IMPOSSIBLE, ImpossibleTrigger.TriggerInstance()))
-			.parent(advancementName)
+			.addCriterion("criteria1", impossible)
+			.addCriterion("criteria2", impossible)
+			.addCriterion("criteria3", impossible)
+			.parent(singleCriterionExample)
 			.save(consumer, "test/multiple")
+
+		val anyCriteriaExample = Advancement.Builder.advancement()
+			.display(
+				Blocks.LADDER,
+				PaperAdventure.asVanilla("<aqua>ANY".miniMessage()),
+				PaperAdventure.asVanilla("<green>CRITERIA??".miniMessage()),
+				null,
+				AdvancementType.CHALLENGE,
+				false,
+				false,
+				false
+			)
+			.addCriterion("any1", impossible)
+			.addCriterion("any2", impossible)
+			.addCriterion("any3", impossible)
+			.requirements(AdvancementRequirements.anyOf(mutableListOf("any1", "any2", "any3")))
+			.parent(singleCriterionExample)
+			.save(consumer, "test/any")
 
 		val exploration_root = Advancement.Builder.advancement()
 			.display(
@@ -77,8 +99,29 @@ object NMSAchievements : IonServerComponent() {
 				false,
 				false
 			)
-			.addCriterion(Achievement.EXPLORATION_ROOT.criteria, Criterion(CriteriaTriggers.IMPOSSIBLE, ImpossibleTrigger.TriggerInstance()))
+			.addCriterion(Achievement.EXPLORATION_ROOT.criteria, impossible)
 			.save(consumer, Achievement.EXPLORATION_ROOT.key)
+
+		val visit_all_systems = Advancement.Builder.advancement()
+			.display(
+				CustomItemRegistry.ILIOS.constructItemStack().nms,
+				PaperAdventure.asVanilla(Achievement.VISIT_ALL_SYSTEMS.title.miniMessage()),
+				PaperAdventure.asVanilla(Achievement.VISIT_ALL_SYSTEMS.description.miniMessage()),
+				null,
+				AdvancementType.GOAL,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.VISIT_ASTERI.criteria, impossible)
+			.addCriterion(Achievement.VISIT_REGULUS.criteria, impossible)
+			.addCriterion(Achievement.VISIT_SIRIUS.criteria, impossible)
+			.addCriterion(Achievement.VISIT_ILIOS.criteria, impossible)
+			.addCriterion(Achievement.VISIT_HORIZON.criteria, impossible)
+			.addCriterion(Achievement.VISIT_TRENCH.criteria, impossible)
+			.addCriterion(Achievement.VISIT_AU_0821.criteria, impossible)
+			.parent(exploration_root)
+			.save(consumer, Achievement.VISIT_ALL_SYSTEMS.key)
 
 		apply(advancements)
 	}

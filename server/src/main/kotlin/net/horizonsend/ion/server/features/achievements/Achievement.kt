@@ -34,6 +34,17 @@ enum class Achievement(
 		 * 3. set criteria to "minecraft:impossible"........................................"pilot_ship": { "minecraft:impossible" }
 	 	 * 4. grant advancement in its respective area within the code......................Achievements.PILOT_SHIP.rewardAdvancement(player)
 
+	 if single-criteria
+	 	1. create a new advancement here following the template
+	 	2. create the advancement in NMSAchievements.kt
+	 	3. reference the two test examples you see
+
+	 if multi-criteria
+	 1. create a new advancement here
+	 	- set the boolean resultAdvancement to true
+	 2. create one advancement for every individual criterion
+
+
 	 ----- if multi-criterion: -----	example file: visit_all_systems.json
 		 * 1. the advancement's .json holds all criteria....................................visit_all_systems.json
 		 * 2. each criterion has its own associated Achievement enum........................visit_asteri -> VISIT_ASTERI(...)
