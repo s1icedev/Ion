@@ -91,7 +91,7 @@ enum class Achievement(
 	SINK_SHIP("Tango Down", "Shoot down a ship", 1000, 250, 0, "exploration/sink_ship", "sink_ship", false), // Vandrayk
 	GET_SUNK("This is Horizon's End", "Get sunk", 500, 100, 0, "exploration/get_sunk", "get_sunk", false), // s1ice
 	ENTER_SPACE("Outer Space!", "Enter Space", 250, 100, 0, "exploration/enter_space", "enter_space", false), // s1ice
-	ENTER_HYPERSPACE("Ludicrous Speed!", "Use hyperspace", 250, 100, 8, "exploration/enter_hyperspace", "enter_hyperspace", false), // Liluzivert
+	ENTER_HYPERSPACE("Ludicrous Speed!", "Enter hyperspace", 250, 100, 8, "exploration/enter_hyperspace", "enter_hyperspace", false), // Liluzivert
 	ENTER_NULL_SPACE("Danger Zone", "Enter a Null System", 500, 250, 0, "exploration/enter_null_space", "enter_null_space", false), // s1ice
 //	COMPLETE_COMMISSION("Easy Money", "Complete a commission", 250, 100, 0, "exploration/complete_commission", "complete_commission", false), // s1ice
 //	THREE_DAY_STREAK("On a Roll", "Have a 3-day commission streak", 500, 250, 0, "exploration/3_day_streak", "3_day_streak", false), // s1ice
@@ -102,7 +102,7 @@ enum class Achievement(
 	PILOT_SPEEDER("Beats Walkin'", "Pilot a Speeder", 100, 100, 0, "exploration/pilot_speeder", "pilot_speeder", false), // s1ice
 	PILOT_SHUTTLE("Baby Steps", "Pilot a Shuttle", 100, 100, 0, "exploration/pilot_shuttle", "pilot_shuttle", false), // s1ice
 	PILOT_TRANSPORT("Moving Forward", "Pilot a Transport", 100, 100, 0, "exploration/pilot_transport", "pilot_transport", false), // s1ice
-	PILOT_LIGHT_FREIGHTER("Freightful!", "Pilot a Light Freighter", 100, 100, 0, "exploration/pilot_light_freighter", "pilot_light_freighter", false), // s1ice
+	PILOT_LIGHT_FREIGHTER("Freightening!", "Pilot a Light Freighter", 100, 100, 0, "exploration/pilot_light_freighter", "pilot_light_freighter", false), // s1ice
 	PILOT_MEDIUM_FREIGHTER("Middle Class Lifestyle", "Pilot a Medium Freighter", 100, 100, 0, "exploration/pilot_medium_freighter", "pilot_medium_freighter", false), // s1ice
 	PILOT_HEAVY_FREIGHTER("The Bigger the Better", "Pilot a Heavy Freighter", 100, 100, 0, "exploration/pilot_heavy_freighter", "pilot_heavy_freighter", false), // s1ice
 	PILOT_BARGE("Corporate Greed", "Pilot a Barge", 100, 100, 0, "exploration/pilot_barge", "pilot_barge", false), // s1ice
@@ -119,16 +119,16 @@ enum class Achievement(
 	BUY_BAZAAR("Ooh, Shiny!", "Buy something from a bazaar", 0, 100, 0, "exploration/buy_bazaar", "buy_bazaar", false), // s1ice
 	REMOTE_BUY_BAZAAR("Same-Day Delivery", "Remotely buy something from a Bazaar", 0, 100, 0, "exploration/remote_buy_bazaar", "remote_buy_bazaar", false), // s1ice
 	SELL_BAZAAR("Community Market", "Put up an item up on the bazaar", 100, 100, 0, "exploration/sell_bazaar", "sell_bazaar", false), // s1ice
-	MILLION_BAZAAR_PROFIT("Capitalist", "Profit 1 million credits from bazaar listings", 1000, 500, 0, "exploration/1_mil_bazaar_profit", "1_mil_bazaar_profit", false), // s1ice
+	MILLION_BAZAAR_PROFIT("Unchecked Space Capitalism", "Profit 1 million credits from bazaar listings", 1000, 500, 0, "exploration/1_mil_bazaar_profit", "1_mil_bazaar_profit", false), // s1ice
 	KILL_PLAYER("Carried Away", "Kill a player", 250, 100, 0, "exploration/kill_player", "kill_player", false), // Astral
 	KILL_CAPTAIN("Mutiny", "Kill a player piloting a ship, as their passenger", 500, 250, 0, "exploration/kill_captain", "kill_captain", false), // s1ice
 	KILL_SETTLEMENT_LEADER("Caesar", "Kill a settlement leader, in their settlement", 500, 250, 0, "exploration/kill_settlement_leader", "kill_settlement_leader", false), // s1ice
 	OBTAIN_PLAYER_HEAD("XVI", "Obtain a Player Head", 250, 100, 0, "exploration/obtain_player_head", "obtain_player_head", false), // s1ice
 	SINK_AI_SHIP("Enemy Down!", "Sink an AI ship", 250, 100, 0, "exploration/sink_ai", "sink_ai", false), // s1ice
 	SINK_ALIEN_SHIP("Next-Level Threat", "Sink an Alien AI ship", 500, 250, 0, "exploration/sink_alien_ship", "sink_alien_ship", false), // s1ice
-	SINK_1K_AI_SHIPS("Terminator", "Kill 1000 AI ships", 10000, 5000, 0, "exploration/kill_1k_ai_ships", "kill_1k_ai_ships", false), // s1ice
+	SINK_1K_AI_SHIPS("Terminator", "Sink 1000 AI ships", 10000, 5000, 0, "exploration/kill_1k_ai_ships", "kill_1k_ai_ships", false), // s1ice
 
-	/** ---------------------------------------- EXPLORATION ---------------------------------------- **/
+	/** ---------------------------------------- LEVELING ---------------------------------------- **/
 	LEVELING_ROOT("", "", 0, 0, 0, "leveling/root", "root", false), // s1ice
 	LEVEL_10("What do we do now?", "Reach level 10", 1000, 250, 0, "leveling/level_10", "level_10", false), // Vandrayk
 	LEVEL_20("Where it begins", "Reach level 20", 2000, 350, 0, "leveling/level_20", "level_20", false), // Kwazedilla + Astral
@@ -265,6 +265,7 @@ enum class Achievement(
 	VISIT_CHANDRA(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_chandra", 	false), // s1ice
 	VISIT_CHIMGARA(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_chimgara", false), // s1ice
 	VISIT_DAMKOTH(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_damkoth", 	false), // s1ice
+	VISIT_EDEN(	    "", "", 100, 125, 0, "exploration/visit_all_planets", "visit_eden", 	false), // s1ice
 	VISIT_GAHARA(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_gahara", 	false), // s1ice
 	VISIT_HERDOLI(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_herdoli", 	false), // s1ice
 	VISIT_ILIUS(	"", "", 100, 125, 0, "exploration/visit_all_planets", "visit_ilius", 	false), // s1ice

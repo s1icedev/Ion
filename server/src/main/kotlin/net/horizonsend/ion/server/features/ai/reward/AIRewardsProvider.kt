@@ -10,7 +10,7 @@ import org.slf4j.Logger
 import java.util.concurrent.atomic.AtomicInteger
 
 interface AIRewardsProvider : RewardsProvider {
-	val configuration: AITemplate.AIRewardsProviderConfiguration
+	//val configuration: AITemplate.AIRewardsProviderConfiguration
 	val starship: ActiveStarship
 	val log: Logger
 

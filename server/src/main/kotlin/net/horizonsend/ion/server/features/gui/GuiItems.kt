@@ -260,6 +260,27 @@ enum class GuiItem(val modelKey: Key) : ItemProvider {
     THREE_QUARTER(NamespacedKeys.packKey("ui/three_quarter")),
     GEAR(NamespacedKeys.packKey("ui/gear")),
 	SHIP_FACTORY_RUNNING(NamespacedKeys.packKey("ui/ship_factory_running")),
+	LEVEL_10(NamespacedKeys.packKey("achievement_icon/level_10")),
+	LEVEL_20(NamespacedKeys.packKey("achievement_icon/level_20")),
+	LEVEL_40(NamespacedKeys.packKey("achievement_icon/level_40")),
+	LEVEL_60(NamespacedKeys.packKey("achievement_icon/level_60")),
+	LEVEL_80(NamespacedKeys.packKey("achievement_icon/level_80")),
+	LEVEL_100(NamespacedKeys.packKey("achievement_icon/level_100")),
+	BALANCE_1K(NamespacedKeys.packKey("achievement_icon/balance_1k")),
+	BALANCE_10K(NamespacedKeys.packKey("achievement_icon/balance_10k")),
+	BALANCE_100K(NamespacedKeys.packKey("achievement_icon/balance_100k")),
+	BALANCE_500K(NamespacedKeys.packKey("achievement_icon/balance_500k")),
+	BALANCE_1M(NamespacedKeys.packKey("achievement_icon/balance_1m")),
+	BALANCE_10M(NamespacedKeys.packKey("achievement_icon/balance_10m")),
+	PLAYER_KILL(NamespacedKeys.packKey("achievement_icon/player_kill")),
+	KILL_SHIP(NamespacedKeys.packKey("achievement_icon/kill_ship")),
+	HYPERSPACE(NamespacedKeys.packKey("achievement_icon/hyperspace")),
+	CREATE_SETTLEMENT(NamespacedKeys.packKey("achievement_icon/create_settlement")),
+	CREATE_NATION(NamespacedKeys.packKey("achievement_icon/create_nation")),
+	CREATE_OUTPOST(NamespacedKeys.packKey("achievement_icon/create_outpost")),
+	STATION_SIEGE(NamespacedKeys.packKey("achievement_icon/station_siege")),
+	STATION_CAPTURE(NamespacedKeys.packKey("achievement_icon/station_capture")),
+
 
 	;
 
