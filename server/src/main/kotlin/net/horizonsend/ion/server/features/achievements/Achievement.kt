@@ -81,7 +81,7 @@ enum class Achievement(
 	 */
 
 //	Template:
-//	TEMPLATE("title", "description", 0, 0, 0, "key", "criteria", isMultiCriterion?), // s1ice
+//	TEMPLATE("title", "description", 0, 0, 0, "key", "criteria", false), // s1ice
 	/** -------------------- Exploration -------------------- **/
 	EXPLORATION_ROOT("", "", 0, 0, 0, "exploration/root", "root", false), // s1ice
 //	COMPLETE_TUTORIAL("Space Cadet", "Complete the Tutorial", 1000, 250, 0, "exploration/complete_tutorial", "complete_tutorial", false), // Wither
@@ -116,6 +116,7 @@ enum class Achievement(
 
 	ADD_PILOT("Take the Keys", "Add a player as a pilot on a starship", 100, 100, 0, "exploration/add_pilot", "add_pilot", false), // s1ice
 	ADD_PILOT_BATTLECRUISER("Don't Scratch the Paint", "Add a player as a pilot on a Battlecruiser", 100, 100, 0, "exploration/add_pilot_battlecruiser", "add_pilot_battlecruiser", false), // s1ice
+	SELL_CROPS("Grain Economics", "Sell crops at the Prometheus Station", 1000, 500, 0, "exploration/sell_crops", "sell_crops", false), // s1ice
 	BUY_BAZAAR("Ooh, Shiny!", "Buy something from a bazaar", 0, 100, 0, "exploration/buy_bazaar", "buy_bazaar", false), // s1ice
 	REMOTE_BUY_BAZAAR("Same-Day Delivery", "Remotely buy something from a Bazaar", 0, 100, 0, "exploration/remote_buy_bazaar", "remote_buy_bazaar", false), // s1ice
 	SELL_BAZAAR("Community Market", "Put up an item up on the bazaar", 100, 100, 0, "exploration/sell_bazaar", "sell_bazaar", false), // s1ice
@@ -126,7 +127,10 @@ enum class Achievement(
 	OBTAIN_PLAYER_HEAD("XVI", "Obtain a Player Head", 250, 100, 0, "exploration/obtain_player_head", "obtain_player_head", false), // s1ice
 	SINK_AI_SHIP("Enemy Down!", "Sink an AI ship", 250, 100, 0, "exploration/sink_ai", "sink_ai", false), // s1ice
 	SINK_ALIEN_SHIP("Next-Level Threat", "Sink an Alien AI ship", 500, 250, 0, "exploration/sink_alien_ship", "sink_alien_ship", false), // s1ice
-	SINK_1K_AI_SHIPS("Terminator", "Sink 1000 AI ships", 10000, 5000, 0, "exploration/kill_1k_ai_ships", "kill_1k_ai_ships", false), // s1ice
+	SINK_1K_AI_SHIPS("Terminator", "Sink 1000 AI ships", 10000, 5000, 0, "exploration/sink_1k_ai_ships", "sink_1k_ai_ships", false), // s1ice
+
+	SPACE_MUSIC_DISC("Sound of Space", "Play a Music Disc in Space", 0, 500, 0, "exploration/space_music_disc", "space_music_disc", false), // s1ice
+	ODOMETER_1M("Rust Bucket", "Pilot a ship with a 1m+ block odometer distance", 0, 2500, 0, "exploration/odometer_1m", "odometer_1m", false), // s1ice
 
 	/** ---------------------------------------- LEVELING ---------------------------------------- **/
 	LEVELING_ROOT("", "", 0, 0, 0, "leveling/root", "root", false), // s1ice
@@ -136,12 +140,12 @@ enum class Achievement(
 	LEVEL_60("The Grind Never Ends","Reach level 60", 6000, 750, 0, "leveling/level_60", "level_60", false), // s1ice
 	LEVEL_80("Overwhelming power", "Reach level 80", 8000, 1000, 0, "leveling/level_80", "level_80", false), // Astral
 	LEVEL_100("Triple Digits!", "Reach level 100", 10000, 0, 0, "leveling/level_100", "level_100", false), // s1ice
-	BAL_1K("Pocket Change", "Have a 1k balance", 0, 100, 0, "leveling/balance_1k", "balance_1k", false), // s1ice
-	BAL_10K("Getting Your Bearings", "Have a 10k balance", 0, 500, 0, "leveling/balance_10k", "balance_10k", false),
+	BAL_10K("Pocket Change", "Have a 10k balance", 0, 100, 0, "leveling/balance_10k", "balance_10k", false), // s1ice
+	BAL_50K("Getting Your Bearings", "Have a 50k balance", 0, 500, 0, "leveling/balance_50k", "balance_50k", false),
 	BAL_100K("The Grind Has Only Begun", "Have a 100k balance", 0, 1000, 0, "leveling/balance_100k", "balance_100k", false), // s1ice
 	BAL_500K("Money, Money, Money", "Have a 500k balance", 0, 2000, 0, "leveling/balance_500k", "balance_500k", false), // s1ice
 	BAL_1M("Millionaire", "Have a 1 mil balance", 0, 5000, 0, "leveling/balance_1mil", "balance_1mil", false), // s1ice
-	BAL_10M("Monopoly", "Have a 10 mil balance", 0, 7500, 0, "leveling/balance_10mil", "balance_10mil", false), // s1ice
+	BAL_5M("Monopoly", "Have a 5 mil balance", 0, 7500, 0, "leveling/balance_5mil", "balance_5mil", false), // s1ice
 
 	/** ---------------------------------------- MATERIALS ---------------------------------------- **/
 	MATERIALS_ROOT("", "", 0, 0, 0, "materials/root", "root", false), // s1ice

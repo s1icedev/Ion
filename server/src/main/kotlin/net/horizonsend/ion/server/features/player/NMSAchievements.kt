@@ -89,6 +89,8 @@ object NMSAchievements : IonServerComponent() {
 			.parent(singleCriterionExample)
 			.save(consumer, "test/any")
 
+// ------------------------- EXPLORATION -------------------------
+
 		val exploration_root = Advancement.Builder.advancement()
 			.display(
 				ItemStack(Material.CHAINMAIL_HELMET).nms,
@@ -150,7 +152,7 @@ object NMSAchievements : IonServerComponent() {
 
 		val enter_hyperspace = Advancement.Builder.advancement()
 			.display(
-				CustomItemRegistry.CHETHERITE.constructItemStack().nms,
+				GuiItem.HYPERSPACE.makeItem().nms,
 				PaperAdventure.asVanilla(("<aqua>" + Achievement.ENTER_HYPERSPACE.title).miniMessage()),
 				PaperAdventure.asVanilla(Achievement.ENTER_HYPERSPACE.description.miniMessage()),
 				null,
@@ -510,6 +512,21 @@ object NMSAchievements : IonServerComponent() {
 			.parent(add_pilot)
 			.save(consumer, Achievement.ADD_PILOT_BATTLECRUISER.key)
 
+		val sell_crops = Advancement.Builder.advancement()
+			.display(
+				ItemStack(Material.WHEAT).nms,
+				PaperAdventure.asVanilla(Achievement.SELL_CROPS.title.miniMessage()),
+				PaperAdventure.asVanilla(Achievement.SELL_CROPS.description.miniMessage()),
+				null,
+				AdvancementType.TASK,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.SELL_CROPS.criteria, impossible)
+			.parent(enter_hyperspace)
+			.save(consumer, Achievement.SELL_CROPS.key)
+
 		val buy_bazaar = Advancement.Builder.advancement()
 			.display(
 				ItemStack(Material.ACACIA_SAPLING).nms,
@@ -677,14 +694,20 @@ object NMSAchievements : IonServerComponent() {
 			.parent(sink_alien_ship)
 			.save(consumer, Achievement.SINK_1K_AI_SHIPS.key)
 
-
-
-
-
-
-
-
-
+		val space_music_disc = Advancement.Builder.advancement()
+			.display(
+				ItemStack(Material.MUSIC_DISC_OTHERSIDE).nms,
+				PaperAdventure.asVanilla(Achievement.SPACE_MUSIC_DISC.title.miniMessage()),
+				PaperAdventure.asVanilla(Achievement.SPACE_MUSIC_DISC.description.miniMessage()),
+				null,
+				AdvancementType.GOAL,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.SPACE_MUSIC_DISC.criteria, impossible)
+			.parent(enter_space)
+			.save(consumer, Achievement.SPACE_MUSIC_DISC.key)
 
 
 
@@ -780,6 +803,203 @@ object NMSAchievements : IonServerComponent() {
 			.addCriterion(Achievement.VISIT_VASK.criteria, impossible)
 			.parent(visit_all_systems)
 			.save(consumer, Achievement.VISIT_ALL_PLANETS.key)
+
+
+// ------------------------- LEVELING -------------------------
+
+		val leveling_root = Advancement.Builder.advancement()
+			.display(
+				ItemStack(Material.EMERALD).nms,
+				PaperAdventure.asVanilla("<green>Leveling".miniMessage()),
+				PaperAdventure.asVanilla("<blue>The Line of Progression".miniMessage()),
+				ResourceLocation.withDefaultNamespace("textures/block/emerald_block.png"),
+				AdvancementType.TASK,
+				false,
+				false,
+				false
+			)
+			.addCriterion(Achievement.LEVELING_ROOT.criteria, impossible)
+			.save(consumer, "leveling/root")
+
+		val level_10 = Advancement.Builder.advancement()
+			.display(
+				GuiItem.LEVEL_10.makeItem().nms,
+				PaperAdventure.asVanilla((Achievement.LEVEL_10.title).miniMessage()),
+				PaperAdventure.asVanilla(Achievement.LEVEL_10.description.miniMessage()),
+				null,
+				AdvancementType.GOAL,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.LEVEL_10.criteria, impossible)
+			.parent(leveling_root)
+			.save(consumer, Achievement.LEVEL_10.key)
+
+		val level_20 = Advancement.Builder.advancement()
+			.display(
+				GuiItem.LEVEL_20.makeItem().nms,
+				PaperAdventure.asVanilla((Achievement.LEVEL_20.title).miniMessage()),
+				PaperAdventure.asVanilla(Achievement.LEVEL_20.description.miniMessage()),
+				null,
+				AdvancementType.GOAL,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.LEVEL_20.criteria, impossible)
+			.parent(level_10)
+			.save(consumer, Achievement.LEVEL_20.key)
+
+		val level_40 = Advancement.Builder.advancement()
+			.display(
+				GuiItem.LEVEL_40.makeItem().nms,
+				PaperAdventure.asVanilla((Achievement.LEVEL_40.title).miniMessage()),
+				PaperAdventure.asVanilla(Achievement.LEVEL_40.description.miniMessage()),
+				null,
+				AdvancementType.GOAL,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.LEVEL_40.criteria, impossible)
+			.parent(level_20)
+			.save(consumer, Achievement.LEVEL_40.key)
+
+		val level_60 = Advancement.Builder.advancement()
+			.display(
+				GuiItem.LEVEL_60.makeItem().nms,
+				PaperAdventure.asVanilla((Achievement.LEVEL_60.title).miniMessage()),
+				PaperAdventure.asVanilla(Achievement.LEVEL_60.description.miniMessage()),
+				null,
+				AdvancementType.GOAL,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.LEVEL_60.criteria, impossible)
+			.parent(level_40)
+			.save(consumer, Achievement.LEVEL_60.key)
+
+		val level_80 = Advancement.Builder.advancement()
+			.display(
+				GuiItem.LEVEL_80.makeItem().nms,
+				PaperAdventure.asVanilla((Achievement.LEVEL_80.title).miniMessage()),
+				PaperAdventure.asVanilla(Achievement.LEVEL_80.description.miniMessage()),
+				null,
+				AdvancementType.GOAL,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.LEVEL_80.criteria, impossible)
+			.parent(level_60)
+			.save(consumer, Achievement.LEVEL_80.key)
+
+		val level_100 = Advancement.Builder.advancement()
+			.display(
+				GuiItem.LEVEL_100.makeItem().nms,
+				PaperAdventure.asVanilla((Achievement.LEVEL_100.title).miniMessage()),
+				PaperAdventure.asVanilla(Achievement.LEVEL_100.description.miniMessage()),
+				null,
+				AdvancementType.CHALLENGE,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.LEVEL_100.criteria, impossible)
+			.parent(level_80)
+			.save(consumer, Achievement.LEVEL_100.key)
+
+		val bal_10k = Advancement.Builder.advancement()
+			.display(
+				GuiItem.BAL_10K.makeItem().nms,
+				PaperAdventure.asVanilla(Achievement.BAL_10K.title.miniMessage()),
+				PaperAdventure.asVanilla(Achievement.BAL_10K.description.miniMessage()),
+				null,
+				AdvancementType.GOAL,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.BAL_10K.criteria, impossible)
+			.parent(leveling_root)
+			.save(consumer, Achievement.BAL_10K.key)
+
+		val bal_50k = Advancement.Builder.advancement()
+			.display(
+				GuiItem.BAL_50K.makeItem().nms,
+				PaperAdventure.asVanilla(Achievement.BAL_50K.title.miniMessage()),
+				PaperAdventure.asVanilla(Achievement.BAL_50K.description.miniMessage()),
+				null,
+				AdvancementType.GOAL,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.BAL_50K.criteria, impossible)
+			.parent(bal_10k)
+			.save(consumer, Achievement.BAL_50K.key)
+
+		val bal_100k = Advancement.Builder.advancement()
+			.display(
+				GuiItem.BAL_100K.makeItem().nms,
+				PaperAdventure.asVanilla(Achievement.BAL_100K.title.miniMessage()),
+				PaperAdventure.asVanilla(Achievement.BAL_100K.description.miniMessage()),
+				null,
+				AdvancementType.GOAL,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.BAL_100K.criteria, impossible)
+			.parent(bal_50k)
+			.save(consumer, Achievement.BAL_100K.key)
+
+		val bal_500k = Advancement.Builder.advancement()
+			.display(
+				GuiItem.BAL_500K.makeItem().nms,
+				PaperAdventure.asVanilla(Achievement.BAL_500K.title.miniMessage()),
+				PaperAdventure.asVanilla(Achievement.BAL_500K.description.miniMessage()),
+				null,
+				AdvancementType.GOAL,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.BAL_500K.criteria, impossible)
+			.parent(bal_100k)
+			.save(consumer, Achievement.BAL_500K.key)
+
+		val bal_1m = Advancement.Builder.advancement()
+			.display(
+				GuiItem.BAL_1M.makeItem().nms,
+				PaperAdventure.asVanilla(Achievement.BAL_1M.title.miniMessage()),
+				PaperAdventure.asVanilla(Achievement.BAL_1M.description.miniMessage()),
+				null,
+				AdvancementType.GOAL,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.BAL_1M.criteria, impossible)
+			.parent(bal_500k)
+			.save(consumer, Achievement.BAL_1M.key)
+
+		val bal_5m = Advancement.Builder.advancement()
+			.display(
+				GuiItem.BAL_5M.makeItem().nms,
+				PaperAdventure.asVanilla(Achievement.BAL_5M.title.miniMessage()),
+				PaperAdventure.asVanilla(Achievement.BAL_5M.description.miniMessage()),
+				null,
+				AdvancementType.CHALLENGE,
+				true,
+				false,
+				false
+			)
+			.addCriterion(Achievement.BAL_5M.criteria, impossible)
+			.parent(bal_1m)
+			.save(consumer, Achievement.BAL_5M.key)
 
 		//final line in function
 		apply(advancements)

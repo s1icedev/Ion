@@ -118,12 +118,12 @@ object AchievementListeners : IonServerComponent() {
 			for (player in Bukkit.getOnlinePlayers()) {
 				val num = vaultEconomy?.getBalance(player) ?: continue
 				when {
-					num >= 10000000.0 -> Achievement.BAL_10M.rewardAdvancement(player)
+					num >= 5000000.0 -> Achievement.BAL_5M.rewardAdvancement(player)
 					num >= 1000000.0 -> Achievement.BAL_1M.rewardAdvancement(player)
 					num >= 500000.0 -> Achievement.BAL_500K.rewardAdvancement(player)
 					num >= 100000.0 -> Achievement.BAL_100K.rewardAdvancement(player)
+					num >= 50000.0 -> Achievement.BAL_50K.rewardAdvancement(player)
 					num >= 10000.0 -> Achievement.BAL_10K.rewardAdvancement(player)
-					num >= 1000.0 -> Achievement.BAL_1K.rewardAdvancement(player)
 				}
 			}
 		}
